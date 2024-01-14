@@ -14,7 +14,7 @@ class LOSTARK_API UInputSystem : public UInputComponent
 {
 	GENERATED_BODY()
 protected:
-	class ACharacterBase* OwnedPlayer;
+	class APlayerBase* OwnedPlayer;
 	class AController* PC;
 
 public:
@@ -25,9 +25,4 @@ public:
 	void Jump();
 	void StopJumping();
 
-	// Axis Event
-	void MoveForward(float Value);
-	void MoveRight(float Value);
-	void TurnAtRate(float Rate);
-	void LookUpAtRate(float Rate);
 };

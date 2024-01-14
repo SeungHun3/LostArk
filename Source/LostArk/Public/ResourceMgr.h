@@ -4,9 +4,7 @@
 
 #include "CoreMinimal.h"
 
-/**
- * 
- */
+
 class LOSTARK_API ResourceMgr
 {
 public:

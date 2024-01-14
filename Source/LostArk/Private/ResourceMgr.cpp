@@ -5,6 +5,7 @@
 
 ResourceMgr::ResourceMgr()
 {
+	UE_LOG(LogTemp, Log, TEXT("//ResourceMgr"));
 }
 
 ResourceMgr::~ResourceMgr()

@@ -18,6 +18,6 @@ public:
 	virtual void OnPossess(APawn* aPawn) override;
 	virtual void SetupInputComponent() override;
 
-	class ACharacterBase* OwnedPlayer;
+	class APlayerBase* OwnedPlayer;
 
 };

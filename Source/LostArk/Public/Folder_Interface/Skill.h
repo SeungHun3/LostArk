@@ -9,8 +9,9 @@
 UENUM(BlueprintType)
 enum class ESkill : uint8
 {
-	BaseAttack,
-	DoubleAttack,
+	NONE,
+	Skill_01,
+	Skill_02,
 
 	END,
 };
@@ -34,7 +35,7 @@ public:
 
 	virtual void Skill(ESkill _type);
 
-	virtual void BaseAttack() = 0;
-	virtual void DoubleAttack() = 0;
+	virtual void Skill_01() = 0;
+	virtual void Skill_02() = 0;
 
 };

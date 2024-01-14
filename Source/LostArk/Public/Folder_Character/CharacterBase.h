@@ -7,22 +7,72 @@
 #include "GameFramework/Character.h"
 #include "CharacterBase.generated.h"
 
+UENUM(BlueprintType)
+enum class EJop : uint8
+{
+	None,
+	Warrior,
+	Hunter,
+	Magician,
+
+	Monster,
+	END,
+};
+
 USTRUCT(BlueprintType)
-struct FBaseProperty
+struct FTotalInfo
 {
 	GENERATED_BODY()
-public:
-	FBaseProperty()
-		: Level(1),HP(100.f), MP(100.f), SP(10)
-	{}
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int Level;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float HP;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float MP;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+private:
+
+	int level;
+	int maxHP;
+	int HP;
+	int maxMP;
+	int MP;
 	int SP;
+	int restAP;
+
+	int Power;
+	int Defence;
+
+
+
+public:
+
+	int	  GetmaxHP() { return maxHP; }
+	int	  GetHP() { return HP; }
+	int	  GetmaxMP() { return maxMP; }
+	int	  GetMP() { return MP; }
+	int	  GetSP() { return SP; }
+	int	  GetPower() { return Power; }
+	int	  GetDefence() { return Defence; }
+
+
+	void SetmaxHP(int _maxHP) { maxHP = _maxHP; }
+	void SetHP(int _HP) { HP = _HP; }
+	void SetmaxMP(int _maxMP) { maxMP = _maxMP; }
+	void SetMP(int _MP) { MP = _MP; }
+	void SetSP(int _SP) { SP = _SP; }
+	void SetPower(int _Power) { Power = _Power; }
+	void SetDefence(int _Defence) { Defence = _Defence; }
+
+	FTotalInfo()
+		: level(1)
+		, maxHP(100), HP(100), maxMP(100), MP(100), SP(10), restAP(0)
+		, Power(10), Defence(3)
+	{}
+
+};
+
+UENUM(BlueprintType)
+enum class EAnimState : uint8
+{
+	Idle,
+	Run,
+	Attack,
+
+	END,
 };
 
 
@@ -36,59 +86,20 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
 
-	//////////////////////////////////////////////////
-	// Component
-
-	//Camera
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
-
-	//Input
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = InputSystem)
-	class UInputSystem* InputSystem;
-
-	
 
 	//////////////////////////////////////////////////
-	// Property
-	
-	// Rotate
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-	float BaseTurnRate;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-	float BaseLookUpRate;
+	// property
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
+	EAnimState animState;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
+	FTotalInfo TotalInfo;
 
-	// character base property
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = BaseProperty)
-	FBaseProperty Info;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
+	EJop Jop;
 
-protected:
-
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	virtual void PossessedBy(AController* NewController) override;
-	// End of APawn interface
-
-
-
-	// Move, Rotate
-	virtual void MoveForward(float Value);
-	virtual void MoveRight(float Value);
-	virtual void TurnAtRate(float Rate);
-	virtual void LookUpAtRate(float Rate);
-
-
-	virtual void LevelUp();
 
 	// skill interface
-	virtual void BaseAttack() override;
-	virtual void DoubleAttack() override;
+	virtual void Skill_01() override;
+	virtual void Skill_02() override;
 
-public:
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
-	friend UInputSystem;
 };
