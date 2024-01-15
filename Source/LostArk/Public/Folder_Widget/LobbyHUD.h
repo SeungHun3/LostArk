@@ -9,4 +9,6 @@ class LOSTARK_API ULobbyHUD : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void NativeConstruct() override;
 };

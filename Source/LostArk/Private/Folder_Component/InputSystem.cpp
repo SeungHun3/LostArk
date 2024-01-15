@@ -1,5 +1,5 @@
-#include "../../Public/Folder_Component/InputSystem.h"
-#include "../../Public/Folder_Character/Player/PlayerBase.h"
+#include "Folder_Component/InputSystem.h"
+#include "Folder_Character/Player/PlayerBase.h"
 
 
 UInputSystem::UInputSystem()

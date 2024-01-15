@@ -18,4 +18,8 @@ class LOSTARK_API AGM_Lobby : public AGameModeBase
 
 public:
 	AGM_Lobby();
+
+	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
+	virtual void BeginPlay() override;
+
 };

@@ -1,13 +1,12 @@
 #include "Folder_Character/Player/PlayerBase.h"
-
-#include "HeadMountedDisplayFunctionLibrary.h"
+//#include "HeadMountedDisplayFunctionLibrary.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-
 #include "Components/InputComponent.h"
-#include "../../../Public/Folder_Component/InputSystem.h"
-#include "../../../Public/Folder_Character/PC_Base.h"
-#include "../../../Public/Folder_Character/State.h"
+#include "Folder_Component/InputSystem.h"
+#include "Folder_Component/WidgetSystem.h"
+#include "Folder_Character/PC_Base.h"
+#include "Folder_Character/State.h"
 
 APlayerBase::APlayerBase()
 {
@@ -23,13 +22,12 @@ APlayerBase::APlayerBase()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 	InputSystem = CreateDefaultSubobject<UInputSystem>(TEXT("InputSystem"));
-	
-	UE_LOG(LogTemp, Log, TEXT("//APlayerBase"));
+	WidgetSystem = CreateDefaultSubobject<UWidgetSystem>(TEXT("WidgetSystem"));
 }
 
 void APlayerBase::ConvertProperty(int _str, int _dex, int _intelligent)
 {
-	if (Jop == EJop::None)
+	if (Job == EJob::None)
 	{
 		TotalInfo.SetPower(_str * 5);
 
@@ -108,6 +106,12 @@ void APlayerBase::LookUpAtRate(float Rate)
 }
 
 
+void APlayerBase::BeginPlay()
+{
+	Super::BeginPlay();
+	WidgetSystem->ShowMainWidget();
+}
+
 void APlayerBase::LevelUp()
 {
 	UE_LOG(LogTemp, Log, TEXT("// LevelUp"));
@@ -115,6 +119,7 @@ void APlayerBase::LevelUp()
 
 void APlayerBase::Skill_01()
 {
+
 	UE_LOG(LogTemp, Log, TEXT("// Skill_01"));
 }
 

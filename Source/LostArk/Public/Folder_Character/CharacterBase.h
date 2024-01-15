@@ -8,7 +8,7 @@
 #include "CharacterBase.generated.h"
 
 UENUM(BlueprintType)
-enum class EJop : uint8
+enum class EJob : uint8
 {
 	None,
 	Warrior,
@@ -25,10 +25,10 @@ struct FTotalInfo
 	GENERATED_BODY()
 private:
 
-	int level;
-	int maxHP;
+	int Level;
+	int MaxHP;
 	int HP;
-	int maxMP;
+	int MaxMP; 
 	int MP;
 	int SP;
 	int restAP;
@@ -40,33 +40,33 @@ private:
 
 public:
 
-	int	  GetmaxHP() { return maxHP; }
+	int	  GetMaxHP() { return MaxHP; }
 	int	  GetHP() { return HP; }
-	int	  GetmaxMP() { return maxMP; }
+	int	  GetMaxMP() { return MaxMP; }
 	int	  GetMP() { return MP; }
 	int	  GetSP() { return SP; }
 	int	  GetPower() { return Power; }
 	int	  GetDefence() { return Defence; }
 
 
-	void SetmaxHP(int _maxHP) { maxHP = _maxHP; }
+	void SetmaxHP(int _maxHP) { MaxHP = _maxHP; }
 	void SetHP(int _HP) { HP = _HP; }
-	void SetmaxMP(int _maxMP) { maxMP = _maxMP; }
+	void SetmaxMP(int _maxMP) { MaxMP = _maxMP; }
 	void SetMP(int _MP) { MP = _MP; }
 	void SetSP(int _SP) { SP = _SP; }
 	void SetPower(int _Power) { Power = _Power; }
 	void SetDefence(int _Defence) { Defence = _Defence; }
 
 	FTotalInfo()
-		: level(1)
-		, maxHP(100), HP(100), maxMP(100), MP(100), SP(10), restAP(0)
+		: Level(1)
+		, MaxHP(100), HP(100), MaxMP(100), MP(100), SP(10), restAP(0)
 		, Power(10), Defence(3)
 	{}
 
 };
 
 UENUM(BlueprintType)
-enum class EAnimState : uint8
+enum class ECharState : uint8
 {
 	Idle,
 	Run,
@@ -90,12 +90,12 @@ public:
 	//////////////////////////////////////////////////
 	// property
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
-	EAnimState animState;
+	ECharState CharState;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
 	FTotalInfo TotalInfo;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
-	EJop Jop;
+	EJob Job;
 
 
 	// skill interface

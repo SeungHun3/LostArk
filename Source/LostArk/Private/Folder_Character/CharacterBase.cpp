@@ -1,14 +1,14 @@
-#include "../../Public/Folder_Character/CharacterBase.h"
+#include "Folder_Character/CharacterBase.h"
 
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "../../Public/Folder_Component/SkillSystem.h"
+#include "Folder_Component/SkillSystem.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 
 
 ACharacterBase::ACharacterBase()
-	: animState(EAnimState::Idle), TotalInfo{}, Jop(EJop::None)
+	: CharState(ECharState::Idle), TotalInfo{}, Job(EJob::None)
 {
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -97.f), FRotator(0.f, -90.f, 0.f));

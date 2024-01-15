@@ -30,6 +30,9 @@ public:
 	//Input
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = InputSystem)
 	class UInputSystem* InputSystem;
+	//Widget
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = InputSystem)
+	class UWidgetSystem* WidgetSystem;
 
 
 
@@ -56,6 +59,9 @@ protected:
 	virtual void LookUpAtRate(float Rate);
 
 
+
+	virtual void BeginPlay() override;
+
 	virtual void LevelUp();
 
 	// skill interface
@@ -67,7 +73,7 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
-	FORCEINLINE EJop  GetJop() { return Jop; }
+	FORCEINLINE EJob  GetJob() { return Job; }
 
 	friend UInputSystem;
 

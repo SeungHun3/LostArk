@@ -1,7 +1,7 @@
 //#include "Folder_Character/State.h"
-#include "../../Public/Folder_Character/State.h"
-#include "../../Public/Folder_Character/PC_Base.h"
-#include "../../Public/Folder_Character/Player/PlayerBase.h"
+#include "Folder_Character/State.h"
+#include "Folder_Character/PC_Base.h"
+#include "Folder_Character/Player/PlayerBase.h"
 
 AState::AState()
 	:BaseProperty{}
