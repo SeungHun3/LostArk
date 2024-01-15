@@ -2,22 +2,22 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Folder_Widget/LobbyHUD.h"
+#include "Folder_Widget/CreateHUD.h"
+#include "Folder_Widget/InGameHUD.h"
 #include "GI_LostArk.h"
 
-class ALobbyHUD;
 
 UWidgetSystem::UWidgetSystem()
+	: CurrHUD(nullptr)
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
 }
 
-
 void UWidgetSystem::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
+	ShowMainWidget();
 }
 
 
@@ -30,10 +30,9 @@ void UWidgetSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 
 void UWidgetSystem::ShowMainWidget()
 {
-
-	if(CurrWidget && CurrWidget->IsInViewport())
+	if(CurrHUD && CurrHUD->IsInViewport())
 	{
-		CurrWidget->RemoveFromViewport();
+		CurrHUD->RemoveFromViewport();
 	}
 
 	if (GetOwner() && GetOwner()->GetGameInstance())
@@ -43,30 +42,43 @@ void UWidgetSystem::ShowMainWidget()
 		if (!pGI)
 			return;
 
+
 		switch (pGI->GetCurrScene())
 		{
 		case EScene::NONE:
 			break;
 
-		case EScene::Scene01:
-			CurrWidget = CreateWidget<UUserWidget>(GetWorld()->GetFirstPlayerController(), LobbyHUD->StaticClass());
+		case EScene::Lobby:
+			CurrHUD = CreateWidget<UUserWidget>(GetWorld(), LobbyHUD);
+			if (CurrHUD)
+			{
+				CurrHUD->AddToViewport();
+			}
 			break;
 
-		case EScene::Scene02:
+		case EScene::Create:
+			CurrHUD = CreateWidget<UUserWidget>(GetWorld(), CreateHUD);
+			if (CurrHUD)
+			{
+				CurrHUD->AddToViewport();
+			}
+			break;
+		case EScene::Shop:
 
 			break;
-		case EScene::Scene03:
-
+		case EScene::Map01:
+		case EScene::Map02:
+			CurrHUD = CreateWidget<UUserWidget>(GetWorld(), InGameHUD);
+			if (CurrHUD)
+			{
+				CurrHUD->AddToViewport();
+			}
 			break;
-		case EScene::Scene04:
 
-			break;
 		case EScene::END:
 
 			break;
 
-		default:
-			break;
 		}
 	}
 

@@ -13,10 +13,15 @@ class LOSTARK_API UWidgetSystem : public UActorComponent
 public:	
 	UWidgetSystem();
 
-	class UUserWidget* CurrWidget;
+	class UUserWidget* CurrHUD;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UUserWidget> LobbyHUD;
+	TSubclassOf<class ULobbyHUD> LobbyHUD;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UCreateHUD> CreateHUD;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UInGameHUD> InGameHUD;
+
 
 protected:
 	virtual void BeginPlay() override;

@@ -20,4 +20,7 @@ public:
 
 	class APlayerBase* OwnedPlayer;
 
+	virtual void FadeOut(float time);
+	virtual void FadeIn(float time);
+
 };

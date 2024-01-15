@@ -1,5 +1,4 @@
 #include "Folder_Character/Player/PlayerBase.h"
-//#include "HeadMountedDisplayFunctionLibrary.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
@@ -109,7 +108,7 @@ void APlayerBase::LookUpAtRate(float Rate)
 void APlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
-	WidgetSystem->ShowMainWidget();
+
 }
 
 void APlayerBase::LevelUp()

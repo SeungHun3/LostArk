@@ -13,7 +13,7 @@ enum class EJob : uint8
 	None,
 	Warrior,
 	Hunter,
-	Magician,
+	//Magician,
 
 	Monster,
 	END,

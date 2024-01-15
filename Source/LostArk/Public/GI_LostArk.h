@@ -3,18 +3,30 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/DataTable.h"
 #include "GI_LostArk.generated.h"
 
 UENUM(BlueprintType)
 enum class EScene : uint8
 {
 	NONE,
-	Scene01,
-	Scene02,
-	Scene03,
-	Scene04,
+	Lobby,
+	Create,
+	Shop,
+	Map01,
+	Map02,
 
 	END,
+};
+// 데이터 테이블용
+USTRUCT(Atomic, BlueprintType)
+struct FCharaterMesh : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	USkeletalMesh* Mesh;
 };
 
 
@@ -27,6 +39,9 @@ private:
 
 public:
 	UGI_LostArk();
+
+	UDataTable* JobMesh;
+
 
 	EScene GetCurrScene() { return currScene; }
 	void SetCurrScene(EScene _CurrScene) { currScene = _CurrScene; }

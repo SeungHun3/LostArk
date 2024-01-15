@@ -11,4 +11,16 @@ class LOSTARK_API ULobbyHUD : public UUserWidget
 	
 public:
 	virtual void NativeConstruct() override;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
+	class UButton* InGameBTN;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
+	class UButton* CreateBTN;
+
+	FTimerHandle TimerHandle;
+
+	UFUNCTION()
+	void InGame();
+
+
 };

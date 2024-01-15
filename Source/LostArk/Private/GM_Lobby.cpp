@@ -5,7 +5,7 @@
 AGM_Lobby::AGM_Lobby()
 {
 	UE_LOG(LogTemp, Log, TEXT("//AGM_Lobby"));
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Character/BP_Charbase"));
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Character/BP_PlayerBase"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
@@ -21,7 +21,7 @@ void AGM_Lobby::InitGame(const FString& MapName, const FString& Options, FString
 	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
 	if (pGI)
 	{
-		pGI->SetCurrScene(EScene::Scene01);
+		pGI->SetCurrScene(EScene::Lobby);
 	}
 }
 

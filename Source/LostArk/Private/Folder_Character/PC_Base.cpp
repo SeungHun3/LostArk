@@ -1,9 +1,34 @@
 #include "Folder_Character/PC_Base.h"
+#include "Kismet/GameplayStatics.h"
 
 void APC_Base::SetupInputComponent()
 {
     Super::SetupInputComponent();
+    bEnableClickEvents = false;
+    bEnableTouchEvents = false;
+    bEnableMouseOverEvents = false;
+    bEnableTouchOverEvents = false;
+}
 
+void APC_Base::FadeOut(float time)
+{
+    float fadetime = time - 2.f;
+    UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)->StartCameraFade(1.f, 0.f, fadetime, FColor::Black, true, true);
+
+    bEnableClickEvents = true;
+    bEnableTouchEvents = true;
+    bEnableMouseOverEvents = true;
+    bEnableTouchOverEvents = true;
+}
+
+void APC_Base::FadeIn(float time)
+{
+    float fadetime = time - 2.f;
+    UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)->StartCameraFade(0.f, 1.f, fadetime, FColor::Black,true, true);
+    bEnableClickEvents = false;
+    bEnableTouchEvents = false;
+    bEnableMouseOverEvents = false;
+    bEnableTouchOverEvents = false;
 }
 
 
