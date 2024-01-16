@@ -1,11 +1,12 @@
 #include "GM_Lobby.h"
 #include "GI_LostArk.h"
+#include "ResourceMgr.h"
 #include "Folder_Character/PC_Base.h"
 
 AGM_Lobby::AGM_Lobby()
 {
-	UE_LOG(LogTemp, Log, TEXT("//AGM_Lobby"));
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Character/BP_PlayerBase"));
+	FString PlayerRes = ResourceMgr::GetInst()->GetLobbyPlayerRes();
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass((TEXT("%s"), *PlayerRes));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;

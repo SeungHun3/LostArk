@@ -52,5 +52,5 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	// friend class widget* a;
+	// friend class widget;
 };

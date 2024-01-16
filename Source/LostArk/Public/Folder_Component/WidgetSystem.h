@@ -22,6 +22,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UInGameHUD> InGameHUD;
 
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//TSubclassOf<class UUserWidget> StateInfoWidget;
 
 protected:
 	virtual void BeginPlay() override;

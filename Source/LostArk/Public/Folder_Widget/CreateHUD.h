@@ -17,7 +17,7 @@ class LOSTARK_API UCreateHUD : public UUserWidget
 public:
 	virtual void NativeConstruct() override;
 
-	// spawn Location, Rotation
+	// Create TargetCharacter spawn Location, Rotation
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	FVector SpawnLocation = FVector::ZeroVector;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))

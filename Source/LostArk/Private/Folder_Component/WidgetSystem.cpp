@@ -66,8 +66,7 @@ void UWidgetSystem::ShowMainWidget()
 		case EScene::Shop:
 
 			break;
-		case EScene::Map01:
-		case EScene::Map02:
+		case EScene::InGame:
 			CurrHUD = CreateWidget<UUserWidget>(GetWorld(), InGameHUD);
 			if (CurrHUD)
 			{

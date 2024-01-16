@@ -1,23 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "../Folder_Interface/Skill.h"
+#include "ResourceMgr.h"
 #include "GameFramework/Character.h"
 #include "CharacterBase.generated.h"
 
-UENUM(BlueprintType)
-enum class EJob : uint8
-{
-	None,
-	Warrior,
-	Hunter,
-	//Magician,
 
-	Monster,
-	END,
-};
 
 USTRUCT(BlueprintType)
 struct FTotalInfo
@@ -39,7 +28,7 @@ private:
 
 
 public:
-
+	int   GetLevel() { return Level; }
 	int	  GetMaxHP() { return MaxHP; }
 	int	  GetHP() { return HP; }
 	int	  GetMaxMP() { return MaxMP; }
@@ -48,7 +37,7 @@ public:
 	int	  GetPower() { return Power; }
 	int	  GetDefence() { return Defence; }
 
-
+	void SetLevel(int _Level) { Level = _Level; }
 	void SetmaxHP(int _maxHP) { MaxHP = _maxHP; }
 	void SetHP(int _HP) { HP = _HP; }
 	void SetmaxMP(int _maxMP) { MaxMP = _maxMP; }

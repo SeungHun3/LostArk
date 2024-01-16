@@ -3,8 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ResourceMgr.h"
-
 #include "GameFramework/GameModeBase.h"
 #include "GM_Lobby.generated.h"
 

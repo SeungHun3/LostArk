@@ -1,5 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Folder_Widget/InGameHUD.h"
 
+
+void UInGameHUD::NativeConstruct()
+{
+	UE_LOG(LogTemp, Log, TEXT("//UInGameHUD"));
+	Super::NativeConstruct();
+
+	
+	//
+	//ShopBTN->OnClicked.AddDynamic(this, &UInGameHUD::ShopToggle);
+}

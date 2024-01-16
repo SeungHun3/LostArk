@@ -13,8 +13,7 @@ enum class EScene : uint8
 	Lobby,
 	Create,
 	Shop,
-	Map01,
-	Map02,
+	InGame,
 
 	END,
 };
