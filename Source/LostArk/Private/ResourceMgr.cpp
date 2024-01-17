@@ -48,3 +48,87 @@ FString ResourceMgr::GetCreateTargetRes()
 {
 	return FString("/Game/Character/BP_CreateTarget");
 }
+
+FString ResourceMgr::GetSkill_QRes(EJob _EJob)
+{
+	switch (_EJob)
+	{
+	case EJob::None:
+		break;
+	case EJob::Warrior:
+		break;
+	case EJob::Hunter:
+		break;
+	case EJob::Monster:
+		break;
+	case EJob::END:
+		break;
+	default:
+		break;
+	}
+
+	return FString("/Game/Widget/InGame/M_Skill/M_Skill_Q");
+}
+
+FString ResourceMgr::GetSkill_WRes(EJob _EJob)
+{
+	switch (EJob::None)
+	{
+	case EJob::None:
+		break;
+	case EJob::Warrior:
+		break;
+	case EJob::Hunter:
+		break;
+	case EJob::Monster:
+		break;
+	case EJob::END:
+		break;
+	default:
+		break;
+	}
+
+	return FString("/Game/Widget/InGame/M_Skill/M_Skill_W");
+}
+
+FString ResourceMgr::GetSkill_ERes(EJob _EJob)
+{
+	switch (_EJob)
+	{
+	case EJob::None:
+		break;
+	case EJob::Warrior:
+		break;
+	case EJob::Hunter:
+		break;
+	case EJob::Monster:
+		break;
+	case EJob::END:
+		break;
+	default:
+		break;
+	}
+
+	return FString("/Game/Widget/InGame/M_Skill/M_Skill_E");
+}
+
+FString ResourceMgr::GetSkill_RRes(EJob _EJob)
+{
+	switch (_EJob)
+	{
+	case EJob::None:
+		break;
+	case EJob::Warrior:
+		break;
+	case EJob::Hunter:
+		break;
+	case EJob::Monster:
+		break;
+	case EJob::END:
+		break;
+	default:
+		break;
+	}
+
+	return FString("/Game/Widget/InGame/M_Skill/M_Skill_R");
+}

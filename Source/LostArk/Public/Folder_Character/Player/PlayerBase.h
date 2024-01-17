@@ -6,9 +6,8 @@
 #include "Folder_Character/CharacterBase.h"
 #include "PlayerBase.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDelegate_Skill_Q);
+
 UCLASS()
 class LOSTARK_API APlayerBase : public ACharacterBase
 {
@@ -65,10 +64,12 @@ protected:
 	virtual void LevelUp();
 
 	// skill interface
-	virtual void Skill_01() override;
-	virtual void Skill_02() override;
+	virtual void Skill_Q() override;
+	virtual void Skill_W() override;
 
 public:
+
+	FDelegate_Skill_Q Delegate_Skill_Q;
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }

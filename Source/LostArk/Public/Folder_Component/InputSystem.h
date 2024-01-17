@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -24,5 +22,13 @@ public:
 	// Action Event
 	void Jump();
 	void StopJumping();
+
+	// Skill Event;
+	UFUNCTION()
+	void OnSkillPressed(FKey InKey);
+	UFUNCTION()
+	void OnSkillReleased(FKey InKey);
+
+
 
 };

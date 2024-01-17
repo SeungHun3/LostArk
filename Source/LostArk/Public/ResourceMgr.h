@@ -30,6 +30,11 @@ public:
 
 	FString GetCreateTargetRes();
 
+	FString GetSkill_QRes(EJob _EJob);
+	FString GetSkill_WRes(EJob _EJob);
+	FString GetSkill_ERes(EJob _EJob);
+	FString GetSkill_RRes(EJob _EJob);
+
 private:
 	ResourceMgr();
 	~ResourceMgr();

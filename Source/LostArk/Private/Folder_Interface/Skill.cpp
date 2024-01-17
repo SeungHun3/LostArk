@@ -1,5 +1,6 @@
 #include "Folder_Interface/Skill.h"
 
+
 void ISkill::Skill(ESkill _type)
 {
 	switch (_type)
@@ -8,17 +9,17 @@ void ISkill::Skill(ESkill _type)
 
 		break;
 
-	case ESkill::Skill_01:
-		Skill_01();
+	case ESkill::Skill_Q:
+		Skill_Q();
 		break;
 
-	case ESkill::Skill_02:
-		Skill_02();
+	case ESkill::Skill_W:
+		Skill_W();
 		break;
 		
 	case ESkill::END:
 		break;
-	default:
-		break;
 	}
+
+
 }

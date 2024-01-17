@@ -20,21 +20,22 @@ ACharacterBase::ACharacterBase()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
 	UE_LOG(LogTemp, Log, TEXT("//ACharacterBase"));
 }
 
 void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	Skill(ESkill::NONE);
+
 }
 
-void ACharacterBase::Skill_01()
+void ACharacterBase::Skill_Q()
 {
+	
+	UE_LOG(LogTemp, Log, TEXT("// base Skill_Q"));
 }
 
-void ACharacterBase::Skill_02()
+void ACharacterBase::Skill_W()
 {
 }
 

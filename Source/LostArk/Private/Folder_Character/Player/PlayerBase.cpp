@@ -22,6 +22,7 @@ APlayerBase::APlayerBase()
 	FollowCamera->bUsePawnControlRotation = false;
 	InputSystem = CreateDefaultSubobject<UInputSystem>(TEXT("InputSystem"));
 	WidgetSystem = CreateDefaultSubobject<UWidgetSystem>(TEXT("WidgetSystem"));
+
 }
 
 void APlayerBase::ConvertProperty(int _str, int _dex, int _intelligent)
@@ -116,13 +117,13 @@ void APlayerBase::LevelUp()
 	UE_LOG(LogTemp, Log, TEXT("// LevelUp"));
 }
 
-void APlayerBase::Skill_01()
+void APlayerBase::Skill_Q()
 {
-
-	UE_LOG(LogTemp, Log, TEXT("// Skill_01"));
+	UE_LOG(LogTemp, Log, TEXT("// Skill_Q"));
+	Delegate_Skill_Q.Broadcast();
 }
 
-void APlayerBase::Skill_02()
+void APlayerBase::Skill_W()
 {
-	UE_LOG(LogTemp, Log, TEXT("// Skill_02"));
+	UE_LOG(LogTemp, Log, TEXT("// Skill_W"));
 }

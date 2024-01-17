@@ -7,7 +7,6 @@
 #include "CharacterBase.generated.h"
 
 
-
 USTRUCT(BlueprintType)
 struct FTotalInfo
 {
@@ -65,7 +64,6 @@ enum class ECharState : uint8
 };
 
 
-
 UCLASS()
 class LOSTARK_API ACharacterBase : public ACharacter, public ISkill
 {
@@ -86,9 +84,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
 	EJob Job;
 
-
+	
 	// skill interface
-	virtual void Skill_01() override;
-	virtual void Skill_02() override;
+	virtual void Skill_Q() override;
+	virtual void Skill_W() override;
+
 
 };
