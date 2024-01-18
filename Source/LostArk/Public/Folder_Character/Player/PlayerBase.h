@@ -1,12 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Folder_Character/CharacterBase.h"
 #include "PlayerBase.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDelegate_Skill_Q);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDelegate_Skill);
 
 UCLASS()
 class LOSTARK_API APlayerBase : public ACharacterBase
@@ -50,7 +48,6 @@ protected:
 	// End of APawn interface
 
 
-
 	// Move, Rotate
 	virtual void MoveForward(float Value);
 	virtual void MoveRight(float Value);
@@ -64,12 +61,13 @@ protected:
 	virtual void LevelUp();
 
 	// skill interface
+	virtual void Skill_Base() override;
 	virtual void Skill_Q() override;
 	virtual void Skill_W() override;
 
 public:
 
-	FDelegate_Skill_Q Delegate_Skill_Q;
+	FDelegate_Skill Delegate_Skill_Base, Delegate_Skill_Q, Delegate_Skill_W, Delegate_Skill_E, Delegate_Skill_R;
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
@@ -77,6 +75,6 @@ public:
 
 	FORCEINLINE EJob  GetJob() { return Job; }
 
-	friend UInputSystem;
+	//friend UInputSystem;
 
 };

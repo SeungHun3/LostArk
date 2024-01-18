@@ -53,16 +53,6 @@ public:
 
 };
 
-UENUM(BlueprintType)
-enum class ECharState : uint8
-{
-	Idle,
-	Run,
-	Attack,
-
-	END,
-};
-
 
 UCLASS()
 class LOSTARK_API ACharacterBase : public ACharacter, public ISkill
@@ -77,17 +67,18 @@ public:
 	//////////////////////////////////////////////////
 	// property
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
-	ECharState CharState;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
 	FTotalInfo TotalInfo;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
 	EJob Job;
 
-	
+
+protected:
 	// skill interface
+	virtual void Skill_Base() override;
 	virtual void Skill_Q() override;
 	virtual void Skill_W() override;
 
+	bool AnimStateCheck(ESkill _type);
 
 };

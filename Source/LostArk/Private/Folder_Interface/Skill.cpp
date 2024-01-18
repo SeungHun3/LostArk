@@ -5,8 +5,8 @@ void ISkill::Skill(ESkill _type)
 {
 	switch (_type)
 	{
-	case ESkill::NONE:
-
+	case ESkill::Base:
+		Skill_Base();
 		break;
 
 	case ESkill::Skill_Q:

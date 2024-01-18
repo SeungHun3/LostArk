@@ -10,6 +10,7 @@ UENUM(BlueprintType)
 enum class ESkill : uint8
 {
 	NONE,
+	Base,
 	Skill_Q,
 	Skill_W,
 
@@ -34,7 +35,7 @@ class LOSTARK_API ISkill
 public:
 
 	virtual void Skill(ESkill _type);
-
+	virtual void Skill_Base() = 0;
 	virtual void Skill_Q() = 0;
 	virtual void Skill_W() = 0;
 

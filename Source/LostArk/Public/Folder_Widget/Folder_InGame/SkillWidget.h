@@ -15,10 +15,10 @@ public:
 	virtual void NativeConstruct() override;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	class UImage* Skill_Image;
-
+	float CoolTime = 0.f;
 	UMaterialInstanceDynamic* TargetMaterial;
 
-	void SetImage(const FString& _MaterialPath);
+	void SetImage(const FString& _MaterialPath, float _CoolTime);
 	void SetSkillPercent(float _Percent);
 
 	UFUNCTION()

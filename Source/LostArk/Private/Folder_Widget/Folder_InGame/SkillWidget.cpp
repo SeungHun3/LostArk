@@ -5,9 +5,23 @@
 void USkillWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+    TimerDelegate.BindLambda([this]()
+        {
+            if (time > CoolTime) {
+                time = 0.f;
+                SetSkillPercent(1.f);
+                GetOwningPlayerPawn()->GetWorldTimerManager().ClearTimer(TimerHandle);
+                return;
+            }
+            SetSkillPercent(time);
+            time += 0.1f;
+
+        });
+
 }
 
-void USkillWidget::SetImage(const FString& _MaterialPath)
+void USkillWidget::SetImage(const FString& _MaterialPath, float _CoolTime)
 {
     UMaterialInterface* LoadedMaterial = LoadObject<UMaterialInterface>(nullptr, *_MaterialPath);
     if (LoadedMaterial)
@@ -16,6 +30,7 @@ void USkillWidget::SetImage(const FString& _MaterialPath)
         if (TargetMaterial)
         {
             Skill_Image->SetBrushFromMaterial(TargetMaterial);
+            CoolTime = _CoolTime;
         }
     }
     else
@@ -35,17 +50,7 @@ void USkillWidget::SetSkillPercent(float _Percent)
 
 void USkillWidget::StartAnim()
 {
-    UE_LOG(LogTemp, Log, TEXT("// StartAnim"));
-    TimerDelegate.BindLambda([this]()
-        {
-            if (time > 1.f)
-            {
-                time = 0.f;
-                GetOwningPlayerPawn()->GetWorldTimerManager().ClearTimer(TimerHandle);
-            }
-            SetSkillPercent(time);
-            time += 0.1f;
-
-        });
-    GetOwningPlayerPawn()->GetWorldTimerManager().SetTimer(TimerHandle, TimerDelegate, 1.f, true);
+    UE_LOG(LogTemp, Log, TEXT("// StartAnim : cool Time : %f"), CoolTime);
+    
+    GetOwningPlayerPawn()->GetWorldTimerManager().SetTimer(TimerHandle, TimerDelegate, 0.1f, true, 0.f);
 }

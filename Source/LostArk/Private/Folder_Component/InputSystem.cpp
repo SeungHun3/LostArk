@@ -43,6 +43,11 @@ void UInputSystem::StopJumping()
 
 void UInputSystem::OnSkillPressed(FKey InKey)
 {
+	if (InKey.ToString() == "LeftMouseButton")
+	{
+		OwnedPlayer->Skill(ESkill::Base);
+	}
+
 	// num1 num2.. 및 마우스 입력 제외
 	if (InKey.ToString().Len() > 2)
 		return;
@@ -54,10 +59,12 @@ void UInputSystem::OnSkillPressed(FKey InKey)
 	{	
 	case 81: // Q
 		OwnedPlayer->Skill(ESkill::Skill_Q);
+		UE_LOG(LogTemp, Log, TEXT("//key : %s,  %c %d"), *InKey.ToString(), Key, asciiKey);
 		break;
 
 	case 87: // W
 		OwnedPlayer->Skill(ESkill::Skill_W);
+		UE_LOG(LogTemp, Log, TEXT("//key : %s,  %c %d"), *InKey.ToString(), Key, asciiKey);
 		break;
 
 	case 69: // E
@@ -67,7 +74,7 @@ void UInputSystem::OnSkillPressed(FKey InKey)
 		break;
 	}
 
-	//UE_LOG(LogTemp, Log, TEXT("//key : %c %d"), Key, asciiKey);
+	//UE_LOG(LogTemp, Log, TEXT("//key : %s,  %c %d"), *InKey.ToString(), Key, asciiKey);
 }
 
 void UInputSystem::OnSkillReleased(FKey InKey)

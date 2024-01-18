@@ -32,7 +32,7 @@ void UWidgetSystem::ShowMainWidget()
 {
 	if(CurrHUD && CurrHUD->IsInViewport())
 	{
-		CurrHUD->RemoveFromViewport();
+		CurrHUD->RemoveFromParent();
 	}
 
 	if (GetOwner() && GetOwner()->GetGameInstance())
