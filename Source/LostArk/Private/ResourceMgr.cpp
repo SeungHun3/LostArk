@@ -14,7 +14,7 @@ ResourceMgr::~ResourceMgr()
 
 FString ResourceMgr::GetInGamePlayerRes(EJob _EJob)
 {
-	FString PlayerRes = "/Game/Character/Player/BP_PlayerBase";
+	FString PlayerRes = "/Game/Character/Player/BP_NewPlayerBase";
 	switch (_EJob)
 	{
 	case EJob::None:
@@ -36,12 +36,12 @@ FString ResourceMgr::GetInGamePlayerRes(EJob _EJob)
 
 FString ResourceMgr::GetLobbyPlayerRes()
 {
-	return FString("/Game/Character/Player/BP_PlayerBase");
+	return FString("/Game/Character/Player/BP_NewPlayerBase");
 }
 
 FString ResourceMgr::GetCreatePlayerRes()
 {
-	return FString("/Game/Character/Player/BP_PlayerBase");
+	return FString("/Game/Character/Player/BP_NewPlayerBase");
 }
 
 FString ResourceMgr::GetCreateTargetRes()

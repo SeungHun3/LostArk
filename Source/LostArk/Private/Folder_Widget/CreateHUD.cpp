@@ -1,13 +1,15 @@
 #include "Folder_Widget/CreateHUD.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
-#include "Kismet/GameplayStatics.h"
+
 #include "GI_LostArk.h"
+
 #include "Folder_Character/PC_Base.h"
 #include "Folder_Character/CharacterBase.h"
 #include "Folder_Component/InputSystem.h"
-#include "Kismet/GameplayStatics.h"
 
+#include "EngineUtils.h"
+#include "Kismet/GameplayStatics.h"
 void UCreateHUD::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -16,11 +18,10 @@ void UCreateHUD::NativeConstruct()
 	if (!PC)
 		return;
 
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Target"), FoundActors);
-	if (FoundActors.IsValidIndex(0))
+
+	for (TActorIterator<ACharacterBase> ActorItr(GetWorld(), ACharacterBase::StaticClass()); ActorItr; ++ActorItr)
 	{
-		TargetCharacter = Cast<ACharacterBase>(FoundActors[0]);
+		TargetCharacter = *ActorItr;
 		if (TargetCharacter)
 		{
 			TargetCharacter->Job = EJob::Warrior;

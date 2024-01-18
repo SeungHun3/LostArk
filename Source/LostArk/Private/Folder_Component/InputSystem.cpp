@@ -14,15 +14,15 @@ UInputSystem::UInputSystem()
 
 	const FInputChord KeyChord(EKeys::AnyKey);
 
-	FInputKeyBinding KB = FInputKeyBinding(KeyChord, EInputEvent::IE_Pressed);
-	KB.KeyDelegate.BindDelegate(this, &UInputSystem::OnSkillPressed);
-	KB.bConsumeInput = false;
-	KeyBindings.Emplace(MoveTemp(KB));
-
-	KB = FInputKeyBinding(KeyChord, EInputEvent::IE_Released);
-	KB.KeyDelegate.BindDelegate(this, &UInputSystem::OnSkillReleased);
-	KB.bConsumeInput = false;
-	KeyBindings.Emplace(MoveTemp(KB));
+	//FInputKeyBinding KB = FInputKeyBinding(KeyChord, EInputEvent::IE_Pressed);
+	//KB.KeyDelegate.BindDelegate(this, &UInputSystem::OnSkillPressed);
+	//KB.bConsumeInput = false;
+	//KeyBindings.Emplace(MoveTemp(KB));
+	//
+	//KB = FInputKeyBinding(KeyChord, EInputEvent::IE_Released);
+	//KB.KeyDelegate.BindDelegate(this, &UInputSystem::OnSkillReleased);
+	//KB.bConsumeInput = false;
+	//KeyBindings.Emplace(MoveTemp(KB));
 }
 
 void UInputSystem::Jump()

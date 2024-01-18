@@ -79,7 +79,7 @@ void UAnimBase_Character::NativeUpdateAnimation(float DeltaSeconds)
 	if (Owner)
 	{
 		IsInAir = Owner->GetMovementComponent()->IsFalling();
-		Speed = Owner->GetVelocity().Length();
+		Speed = Owner->GetVelocity().Size();
 	}
 	
 }

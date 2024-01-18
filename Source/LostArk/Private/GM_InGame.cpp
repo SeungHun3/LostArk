@@ -2,6 +2,7 @@
 #include "GI_LostArk.h"
 #include "ResourceMgr.h"
 #include "Folder_Character/PC_Base.h"
+#include "Folder_Character/MonsterSpawner.h"
 
 AGM_InGame::AGM_InGame()
 {
@@ -13,6 +14,7 @@ AGM_InGame::AGM_InGame()
 	}
 	UE_LOG(LogTemp, Log, TEXT("// InGame"));
 	PlayerControllerClass = APC_Base::StaticClass();
+
 }
 
 void AGM_InGame::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
@@ -28,4 +30,9 @@ void AGM_InGame::InitGame(const FString& MapName, const FString& Options, FStrin
 void AGM_InGame::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AGM_InGame::StartSpawnerTimer()
+{
+
 }
