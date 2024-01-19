@@ -1,6 +1,20 @@
 #include "Folder_Character/PC_Base.h"
 #include "Kismet/GameplayStatics.h"
 
+APC_Base::APC_Base(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer), OwnedPlayer(nullptr)
+{
+    bShowMouseCursor = true;
+}
+
+void APC_Base::OnPossess(APawn* aPawn)
+{
+    Super::OnPossess(aPawn);
+
+}
+
+
+
 void APC_Base::SetupInputComponent()
 {
     Super::SetupInputComponent();
@@ -31,9 +45,3 @@ void APC_Base::FadeIn(float time)
     bEnableTouchOverEvents = false;
 }
 
-
-void APC_Base::OnPossess(APawn* aPawn)
-{
-    Super::OnPossess(aPawn);
-
-}

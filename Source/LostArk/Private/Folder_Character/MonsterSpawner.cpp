@@ -3,17 +3,25 @@
 #include "Engine/TargetPoint.h"
 #include "EngineUtils.h"
 
+#define MONSTERCOUNT 10
+
 AMonsterSpawner::AMonsterSpawner()
 {
 	PrimaryActorTick.bCanEverTick = false;
+
+	
+	MonsterSpawnParam.Owner = this;
+	MonsterSpawnParam.Instigator = GetInstigator();
+	MonsterSpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 	
 }
 
 void AMonsterSpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	Spawn(); 
-	
+
+	Spawn(MonsterName.Oak);
+	Spawn(MonsterName.Wolf);
 }
 
 int AMonsterSpawner::CheckMonsterCount(const FName& Tag)
@@ -30,37 +38,34 @@ int AMonsterSpawner::CheckMonsterCount(const FName& Tag)
 	return TagCnt;
 }
 
-void AMonsterSpawner::Spawn()
+void AMonsterSpawner::Spawn(const FName& Tag)
 {
-	FActorSpawnParameters MonsterSpawnParam;
-	MonsterSpawnParam.Owner = this;
-	MonsterSpawnParam.Instigator = GetInstigator();
-	MonsterSpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	for (const auto& SpawnTarget : SpawnLocation)
+	if (Tag == MonsterName.Oak)
 	{
-		FName TagName = SpawnTarget.Key;
-		FString ss = TagName.ToString();
-		if(TagName == "Oak")
+		MonsterBlueprintClass = OakClass;
+	}
+	else if (Tag == MonsterName.Wolf)
+	{
+		MonsterBlueprintClass = WolfClass;
+	}
+	ATargetPoint* FoundTargetTag = *SpawnLocation.Find(Tag);
+
+	if (!FoundTargetTag || !MonsterBlueprintClass)
+		return;
+
+
+	FVector TargetLocation = FoundTargetTag->GetRootComponent()->GetComponentLocation();
+	int WorldMonsters = CheckMonsterCount(Tag);
+	if (WorldMonsters <= MONSTERCOUNT)
+	{
+		for (int i = 0; i < MONSTERCOUNT - WorldMonsters; i++)
 		{
-			int MonsterCount = CheckMonsterCount(TagName);
-			if (MonsterCount <= 10)
+			AActor* SpawnedMonster = GetWorld()->SpawnActor<AActor>(MonsterBlueprintClass, TargetLocation, FRotator(0.f), MonsterSpawnParam);
+			if (SpawnedMonster)
 			{
-				AActor* SpawnedMonster = GetWorld()->SpawnActor<AActor>(MonsterClass, FVector(0.f, 0.f, 0.f), FRotator(0.f), MonsterSpawnParam);
-				if (SpawnedMonster)
-				{
-					UE_LOG(LogTemp, Log, TEXT("// Spawn "));
-				}
-				else
-				{
-					UE_LOG(LogTemp, Log, TEXT("// Spawn not "));
-				}
+				SpawnedMonster->Tags.Add("Oak");
 			}
 		}
-		else if(TagName == "Wolf")
-		{
-
-		}
-
 	}
 }
 

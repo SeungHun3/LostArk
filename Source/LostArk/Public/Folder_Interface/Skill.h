@@ -35,8 +35,8 @@ class LOSTARK_API ISkill
 public:
 
 	virtual void Skill(ESkill _type);
-	virtual void Skill_Base() = 0;
-	virtual void Skill_Q() = 0;
-	virtual void Skill_W() = 0;
+	virtual bool Skill_Base() = 0;
+	virtual bool Skill_Q() = 0;
+	virtual bool Skill_W() = 0;
 
 };

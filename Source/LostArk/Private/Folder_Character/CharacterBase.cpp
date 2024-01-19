@@ -30,22 +30,35 @@ void ACharacterBase::BeginPlay()
 
 }
 
-void ACharacterBase::Skill_Base()
+bool ACharacterBase::Skill_Base()
 {
-	GetCharacterMovement()->SetActive(false);
-	UE_LOG(LogTemp, Log, TEXT("// ACharacterBase: Skill_Base"));
+	if (AnimStateCheck(ESkill::NONE) || AnimStateCheck(ESkill::Base))
+	{
+		GetCharacterMovement()->SetActive(false);
+		UE_LOG(LogTemp, Log, TEXT("// ACharacterBase: Skill_Base"));
+		return true;
+	}
+	return false;
 }
 
-void ACharacterBase::Skill_Q()
+bool ACharacterBase::Skill_Q()
 {
+	if (!AnimStateCheck(ESkill::NONE))
+		return false;
+
 	GetCharacterMovement()->SetActive(false);
 	UE_LOG(LogTemp, Log, TEXT("// ACharacterBase: Skill_Q"));
+	return true;
 }
 
-void ACharacterBase::Skill_W()
+bool ACharacterBase::Skill_W()
 {
+	if (!AnimStateCheck(ESkill::NONE))
+		return false;
+
 	GetCharacterMovement()->SetActive(false);
 	UE_LOG(LogTemp, Log, TEXT("// ACharacterBase: Skill_W"));
+	return true;
 }
 
 bool ACharacterBase::AnimStateCheck(ESkill _type)

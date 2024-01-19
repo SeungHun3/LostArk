@@ -14,6 +14,8 @@ class LOSTARK_API AGM_InGame : public AGameModeBase
 
 public:
 	AGM_InGame();
+	virtual void PostLogin(APlayerController* NewPlayer);
+
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 	virtual void BeginPlay() override;
 

@@ -22,9 +22,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UInGameHUD> InGameHUD;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//TSubclassOf<class UUserWidget> StateInfoWidget;
-
 protected:
 	virtual void BeginPlay() override;
 
@@ -33,5 +30,5 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void ShowMainWidget();
 
-		
+	
 };

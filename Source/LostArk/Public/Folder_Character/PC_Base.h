@@ -14,7 +14,7 @@ class LOSTARK_API APC_Base : public APlayerController
 {
 	GENERATED_BODY()
 public:
-
+	APC_Base(const FObjectInitializer& ObjectInitializer);
 	virtual void OnPossess(APawn* aPawn) override;
 	virtual void SetupInputComponent() override;
 

@@ -75,9 +75,9 @@ public:
 
 protected:
 	// skill interface
-	virtual void Skill_Base() override;
-	virtual void Skill_Q() override;
-	virtual void Skill_W() override;
+	virtual bool Skill_Base() override;
+	virtual bool Skill_Q() override;
+	virtual bool Skill_W() override;
 
 	bool AnimStateCheck(ESkill _type);
 

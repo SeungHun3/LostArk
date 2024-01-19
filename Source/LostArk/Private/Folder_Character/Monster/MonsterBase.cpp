@@ -2,6 +2,7 @@
 
 AMonsterBase::AMonsterBase()
 {
+	Job = EJob::Monster;
 	Tags.Add("Monster");
 	UE_LOG(LogTemp, Log, TEXT("// Monster"));
 }

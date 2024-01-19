@@ -118,34 +118,34 @@ void APlayerBase::LevelUp()
 }
 
 
-void APlayerBase::Skill_Base()
+bool APlayerBase::Skill_Base()
 {
-	ACharacterBase::Skill_Base();
-	if (AnimStateCheck(ESkill::NONE) || AnimStateCheck(ESkill::Base))
+	if (ACharacterBase::Skill_Base())
 	{
-		UE_LOG(LogTemp, Log, TEXT("// Skill_Base"));
 		Delegate_Skill_Base.Broadcast();
+		return true;
 	}
+	return false;
 }
 
-void APlayerBase::Skill_Q()
+bool APlayerBase::Skill_Q()
 {
-	ACharacterBase::Skill_Q();
-
-	if (!AnimStateCheck(ESkill::NONE))
-		return;
-
-	UE_LOG(LogTemp, Log, TEXT("// Skill_Q"));
-	Delegate_Skill_Q.Broadcast();
+	if (ACharacterBase::Skill_Q())
+	{
+		UE_LOG(LogTemp, Log, TEXT("// Skill_Q"));
+		Delegate_Skill_Q.Broadcast();
+		return true;
+	}
+	return false;
 }
 
-void APlayerBase::Skill_W()
+bool APlayerBase::Skill_W()
 {
-	ACharacterBase::Skill_W();
-
-	if (!AnimStateCheck(ESkill::NONE))
-		return;
-
-	UE_LOG(LogTemp, Log, TEXT("// Skill_W"));
-	Delegate_Skill_W.Broadcast();
+	if (ACharacterBase::Skill_W())
+	{
+		UE_LOG(LogTemp, Log, TEXT("// Skill_W"));
+		Delegate_Skill_W.Broadcast();
+		return true;
+	}
+	return false;
 }

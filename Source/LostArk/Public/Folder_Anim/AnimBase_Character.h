@@ -36,6 +36,7 @@ public:
 	// Skill Base
 	UFUNCTION()
 	void Skill_Base();
+
 	UFUNCTION()
 	void AnimNotify_SKillBase_Open();
 	UFUNCTION()

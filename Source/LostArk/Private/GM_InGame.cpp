@@ -15,11 +15,19 @@ AGM_InGame::AGM_InGame()
 	UE_LOG(LogTemp, Log, TEXT("// InGame"));
 	PlayerControllerClass = APC_Base::StaticClass();
 
+
+}
+
+void AGM_InGame::PostLogin(APlayerController* NewPlayer)
+{
+	Super::PostLogin(NewPlayer);
+	UE_LOG(LogTemp, Log, TEXT("// PostLogin"));
 }
 
 void AGM_InGame::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
+	UE_LOG(LogTemp, Log, TEXT("// InitGame"));
 	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
 	if (pGI)
 	{

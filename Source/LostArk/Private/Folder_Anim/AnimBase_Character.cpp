@@ -4,6 +4,7 @@
 
 UAnimBase_Character::UAnimBase_Character()
 {
+	Player = nullptr;
 	IsInAir = false;
 	Speed = 0.f;
 	BaseCombo = 0;

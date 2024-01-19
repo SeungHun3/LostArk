@@ -27,15 +27,9 @@ public:
 	class ULevelWidget* LevelWidget;
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	//class UUserWidget* ToolBarWidget;
-
+	//UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
+	//class UUserWidget* InGameBarWidget;
 
 	//// Toolbar
-	//UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
-	//class UButton* ShopBTN;
-	//
 	
-	//
-	//
-	//UFUNCTION()
-	//void ShopToggle();
 };

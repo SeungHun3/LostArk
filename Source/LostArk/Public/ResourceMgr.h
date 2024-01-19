@@ -35,6 +35,8 @@ public:
 	FString GetSkill_ERes(EJob _EJob);
 	FString GetSkill_RRes(EJob _EJob);
 
+
+
 private:
 	ResourceMgr();
 	~ResourceMgr();

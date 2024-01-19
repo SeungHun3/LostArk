@@ -22,10 +22,11 @@ void UCreateHUD::NativeConstruct()
 	for (TActorIterator<ACharacterBase> ActorItr(GetWorld(), ACharacterBase::StaticClass()); ActorItr; ++ActorItr)
 	{
 		TargetCharacter = *ActorItr;
-		if (TargetCharacter)
+		if (TargetCharacter && TargetCharacter->ActorHasTag("Target"))
 		{
 			TargetCharacter->Job = EJob::Warrior;
 			JobName->SetText(FText::FromString("Warrior"));
+			break;
 		}
 	}
 
