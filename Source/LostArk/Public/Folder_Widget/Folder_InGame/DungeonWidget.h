@@ -17,9 +17,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	class UImage* DungeonImage;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta = (BindWidget))
 	class UButton* EnterBTN;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta = (BindWidget))
 	class UExitBTN* ExitDungeonBTN;
 
 
