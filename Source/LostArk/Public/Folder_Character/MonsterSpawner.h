@@ -28,8 +28,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class AMonsterBase> OakClass;
 	
-	UClass* MonsterBlueprintClass;
+	UClass* SpawnClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float TimeRate;
 
 
 	int CheckMonsterCount(const FName& Tag);

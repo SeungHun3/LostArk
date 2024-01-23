@@ -41,3 +41,5 @@ private:
 	ResourceMgr();
 	~ResourceMgr();
 };
+
+UUserWidget* GetMainHUD(UUserWidget* _CurWidget);

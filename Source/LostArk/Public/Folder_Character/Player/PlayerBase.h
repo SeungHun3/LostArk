@@ -31,7 +31,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = InputSystem)
 	class UWidgetSystem* WidgetSystem;
 
-
+	class APC_Base* OwingController;
 
 	// Rotate
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -47,15 +47,9 @@ protected:
 	virtual void PossessedBy(AController* NewController) override;
 	// End of APawn interface
 
-
-	// Move, Rotate
-	virtual void MoveForward(float Value);
-	virtual void MoveRight(float Value);
-	virtual void TurnAtRate(float Rate);
-	virtual void LookUpAtRate(float Rate);
-
-
-
+public:
+	virtual void Move();
+protected:
 	virtual void BeginPlay() override;
 
 	virtual void LevelUp();

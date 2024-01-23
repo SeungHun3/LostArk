@@ -37,9 +37,9 @@ public:
 	int	  GetDefence() { return Defence; }
 
 	void SetLevel(int _Level) { Level = _Level; }
-	void SetmaxHP(int _maxHP) { MaxHP = _maxHP; }
+	void SetMaxHP(int _maxHP) { MaxHP = _maxHP; }
 	void SetHP(int _HP) { HP = _HP; }
-	void SetmaxMP(int _maxMP) { MaxMP = _maxMP; }
+	void SetMaxMP(int _maxMP) { MaxMP = _maxMP; }
 	void SetMP(int _MP) { MP = _MP; }
 	void SetSP(int _SP) { SP = _SP; }
 	void SetPower(int _Power) { Power = _Power; }

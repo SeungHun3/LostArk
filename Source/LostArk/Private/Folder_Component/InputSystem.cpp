@@ -1,7 +1,7 @@
 #include "Folder_Component/InputSystem.h"
 #include "Framework/Commands/InputChord.h"
 #include "Folder_Character/Player/PlayerBase.h"
-
+#include "Folder_Character/PC_Base.h"
 
 UInputSystem::UInputSystem()
 	: OwnedPlayer(nullptr)
@@ -46,6 +46,10 @@ void UInputSystem::OnSkillPressed(FKey InKey)
 	if (InKey.ToString() == "LeftMouseButton")
 	{
 		OwnedPlayer->Skill(ESkill::Base);
+	}
+	else if (InKey.ToString() == "RightMouseButton")
+	{
+		OwnedPlayer->Move();
 	}
 
 	// num1 num2.. 및 마우스 입력 제외

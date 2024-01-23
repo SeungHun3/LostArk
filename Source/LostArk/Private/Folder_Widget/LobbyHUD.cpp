@@ -1,38 +1,45 @@
 #include "Folder_Widget/LobbyHUD.h"
 #include "Components/Button.h"
-#include "Kismet/GameplayStatics.h"
-#include "Folder_Character/PC_Base.h"
+#include "GI_LostArk.h"
 
 void ULobbyHUD::NativeConstruct()
 {
 	Super::NativeConstruct();
-	
+
+	UGI_LostArk *GI = Cast<UGI_LostArk>(GetGameInstance());
+	if (GI)
+	{
+		GI->StartLevel(3.f);
+	}
+
+	GetOwningPlayerPawn()->DisableInput(GetWorld()->GetFirstPlayerController());
+
 	InGameBTN->OnClicked.AddDynamic(this, &ULobbyHUD::InGame);
-	APC_Base* PC = Cast<APC_Base>(GetWorld()->GetFirstPlayerController());
-	if (!PC)
-		return;
-
-	float time = 5.f;
-	PC->FadeOut(time);
-
+	CreateBTN->OnClicked.AddDynamic(this, &ULobbyHUD::Create);
 }
 
-void ULobbyHUD::InGame()
+void ULobbyHUD::InGame() // 서버데이터 받거나 SaveGame 저장 = 현재는 Default 로 Warrior 넣음
 {
-	APC_Base* PC = Cast<APC_Base>(GetWorld()->GetFirstPlayerController());
-	if (!PC)
-		return;
-
-	SetVisibility(ESlateVisibility::Collapsed);
-	float time = 5.f;
-	PC->FadeIn(time);
-	FTimerDelegate TimerDelegate;
-
-	TimerDelegate.BindLambda([this]()
+	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
+	if (pGI)
+	{
+		FCharaterInfo* TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Warrior"), "");
+		if (TargetInfo)
 		{
-			UGameplayStatics::OpenLevel(GetWorld()->GetFirstPlayerController(), "InGame");
-		});
+			pGI->SetPlayerInfo(TargetInfo);
+			pGI->ChangeLevel(3.f, "InGame");
+			SetVisibility(ESlateVisibility::Collapsed);
+		}
 
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, time, false);
+	}
+}
 
+void ULobbyHUD::Create()
+{
+	UGI_LostArk* GI = Cast<UGI_LostArk>(GetGameInstance());
+	if (GI)
+	{
+		GI->ChangeLevel(3.f, "Create");
+		SetVisibility(ESlateVisibility::Collapsed);
+	}
 }

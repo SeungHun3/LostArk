@@ -21,7 +21,6 @@ ACharacterBase::ACharacterBase()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-	UE_LOG(LogTemp, Log, TEXT("//ACharacterBase"));
 }
 
 void ACharacterBase::BeginPlay()

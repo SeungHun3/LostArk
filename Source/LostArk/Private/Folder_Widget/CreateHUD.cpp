@@ -8,15 +8,19 @@
 #include "Folder_Character/CharacterBase.h"
 #include "Folder_Component/InputSystem.h"
 
+#include "GI_LostArk.h"
 #include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
+
 void UCreateHUD::NativeConstruct()
 {
 	Super::NativeConstruct();
-	APC_Base* PC = Cast<APC_Base>(GetWorld()->GetFirstPlayerController());
 
-	if (!PC)
-		return;
+	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
+	if (pGI)
+	{
+		pGI->StartLevel(3.f);
+	}
 
 
 	for (TActorIterator<ACharacterBase> ActorItr(GetWorld(), ACharacterBase::StaticClass()); ActorItr; ++ActorItr)
@@ -26,14 +30,18 @@ void UCreateHUD::NativeConstruct()
 		{
 			TargetCharacter->Job = EJob::Warrior;
 			JobName->SetText(FText::FromString("Warrior"));
+			FCharaterInfo* TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Warrior"), "");
+			if (TargetInfo)
+			{
+				pGI->SetPlayerInfo(TargetInfo);
+			}
+
 			break;
 		}
 	}
 
 	GetOwningPlayerPawn()->DisableInput(GetWorld()->GetFirstPlayerController());
 
-	float time = 5.f;
-	PC->FadeOut(time);
 
 	SelectJobBTN->OnClicked.AddDynamic(this, &UCreateHUD::ClickedJob);
 	CreateBTN->OnClicked.AddDynamic(this, &UCreateHUD::Create);
@@ -45,31 +53,33 @@ void UCreateHUD::ClickedJob()
 
 	if (pGI && TargetCharacter)
 	{
-		FCharaterMesh* TargetMesh = nullptr;
+		FCharaterInfo* TargetInfo = nullptr;
 		TargetCharacter->Job == EJob::Warrior ? TargetCharacter->Job = EJob::Hunter : TargetCharacter->Job = EJob::Warrior;
 
 
 		switch (TargetCharacter->Job)
 		{
 		case EJob::Warrior:
-
-			TargetMesh = pGI->JobMesh->FindRow<FCharaterMesh>(FName("Warrior"), "");
-			if (TargetMesh->Mesh)
+		
+			TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Warrior"), "");
+			if (TargetInfo && TargetInfo->Mesh)
 			{
-				TargetCharacter->GetMesh()->SetSkeletalMesh(TargetMesh->Mesh);
+				TargetCharacter->GetMesh()->SetSkeletalMesh(TargetInfo->Mesh);
 				JobName->SetText(FText::FromString("Warrior"));
+				pGI->SetPlayerInfo(TargetInfo);
 			}
 			
 			break;
-
+		
 		case EJob::Hunter:
-			TargetMesh = pGI->JobMesh->FindRow<FCharaterMesh>(FName("Hunter"), "");
-			if (TargetMesh->Mesh)
+			TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Hunter"), "");
+			if (TargetInfo && TargetInfo->Mesh)
 			{
-				TargetCharacter->GetMesh()->SetSkeletalMesh(TargetMesh->Mesh);
+				TargetCharacter->GetMesh()->SetSkeletalMesh(TargetInfo->Mesh);
 				JobName->SetText(FText::FromString("Hunter"));
+				pGI->SetPlayerInfo(TargetInfo);
 			}
-
+		
 			break;
 
 		}
@@ -83,19 +93,10 @@ void UCreateHUD::Create()
 
 void UCreateHUD::InGame()
 {
-	APC_Base* PC = Cast<APC_Base>(GetWorld()->GetFirstPlayerController());
-	if (!PC)
-		return;
-
+	UGI_LostArk* GI = Cast<UGI_LostArk>(GetGameInstance());
+	if (GI)
+	{
+		GI->ChangeLevel(3.f, "InGame");
+	}
 	SetVisibility(ESlateVisibility::Collapsed);
-	float time = 5.f;
-	PC->FadeIn(time);
-	FTimerDelegate TimerDelegate;
-
-	TimerDelegate.BindLambda([this]()
-		{
-			UGameplayStatics::OpenLevel(GetWorld()->GetFirstPlayerController(), "InGame");
-		});
-
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, time, false);
 }

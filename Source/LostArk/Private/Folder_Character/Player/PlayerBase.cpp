@@ -6,23 +6,29 @@
 #include "Folder_Component/WidgetSystem.h"
 #include "Folder_Character/PC_Base.h"
 #include "Folder_Character/State.h"
+#include "GI_LostArk.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"
 
 APlayerBase::APlayerBase()
+	:OwingController(nullptr)
 {
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 300.0f;
-	CameraBoom->bUsePawnControlRotation = true;
-
+	CameraBoom->TargetArmLength = 1400.0f;
+	CameraBoom->SetRelativeRotation(FRotator(-50.f, 0.f, 0.f));
+	CameraBoom->bUsePawnControlRotation = false;
+	CameraBoom->bInheritPitch = false;
+	CameraBoom->bInheritRoll = false;
+	CameraBoom->bInheritYaw = false;
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 	InputSystem = CreateDefaultSubobject<UInputSystem>(TEXT("InputSystem"));
 	WidgetSystem = CreateDefaultSubobject<UWidgetSystem>(TEXT("WidgetSystem"));
-
+	GetMesh()->SetVisibility(false);
 }
 
 void APlayerBase::ConvertProperty(int _str, int _dex, int _intelligent)
@@ -50,66 +56,48 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis("MoveForward", this, &APlayerBase::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerBase::MoveRight);
-	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("TurnRate", this, &APlayerBase::TurnAtRate);
-	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &APlayerBase::LookUpAtRate);
-
 }
 
 void APlayerBase::PossessedBy(AController* NewController)
 {
+	Super::PossessedBy(NewController);
+
+	OwingController = Cast<APC_Base>(NewController);
 	AState* state = NewController->GetPlayerState<AState>();
-	if (state)
+	if (state && OwingController)
 	{
-		UE_LOG(LogTemp, Log, TEXT("//state"));
+		UE_LOG(LogTemp, Log, TEXT("//state, Controller"));
 		state->Init(1);
 	}
-
 }
 
-void APlayerBase::MoveForward(float Value)
-{
-	if ((Controller != nullptr) && (Value != 0.0f))
-	{
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		AddMovementInput(Direction, Value);
+
+void APlayerBase::Move()
+{
+	if (OwingController)
+	{
+		FHitResult HitResult;
+		OwingController->GetHitResultUnderCursor(ECollisionChannel::ECC_Camera, true, HitResult);
+		UAIBlueprintHelperLibrary::SimpleMoveToLocation(OwingController, HitResult.Location);
 	}
 }
-
-void APlayerBase::MoveRight(float Value)
-{
-
-	if ((Controller != nullptr) && (Value != 0.0f))
-	{
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-		AddMovementInput(Direction, Value);
-	}
-}
-
-void APlayerBase::TurnAtRate(float Rate)
-{
-	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
-}
-
-void APlayerBase::LookUpAtRate(float Rate)
-{
-	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
-}
-
 
 void APlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
+	if (pGI)
+	{
+		FCharaterInfo* PlayerInfo = pGI->GetPlayerInfo();
+		if ((pGI->GetCurrScene() == EScene::InGame) && (PlayerInfo))
+		{
+			GetMesh()->SetSkeletalMesh(PlayerInfo->Mesh);
+			Job = PlayerInfo->Job;
+			GetMesh()->SetVisibility(true);
+		}
+	}
 }
 
 void APlayerBase::LevelUp()

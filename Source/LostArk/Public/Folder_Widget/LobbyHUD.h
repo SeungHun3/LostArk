@@ -17,10 +17,12 @@ public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
 	class UButton* CreateBTN;
 
-	FTimerHandle TimerHandle;
+	
 
 	UFUNCTION()
 	void InGame();
+	UFUNCTION()
+	void Create();
 
 
 };

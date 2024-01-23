@@ -2,7 +2,7 @@
 #include "GI_LostArk.h"
 #include "ResourceMgr.h"
 #include "Folder_Character/PC_Base.h"
-
+#include "Folder_Character/Player/PlayerBase.h"
 AGM_Lobby::AGM_Lobby()
 {
 	FString PlayerRes = ResourceMgr::GetInst()->GetLobbyPlayerRes();
@@ -11,7 +11,6 @@ AGM_Lobby::AGM_Lobby()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
-	
 	PlayerControllerClass = APC_Base::StaticClass();
 	
 }

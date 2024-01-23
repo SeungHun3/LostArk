@@ -35,7 +35,6 @@ UCanvasPanel* UExitBTN::FindParent(UPanelWidget* Child, int FindCount)
         {
             return UserWidget;
         }
-
         CurrentParent = CurrentParent->GetParent();
     }
 

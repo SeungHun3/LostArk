@@ -15,4 +15,14 @@ class LOSTARK_API AMonsterBase : public ACharacterBase
 	GENERATED_BODY()
 public:
 	AMonsterBase();
+	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UWidgetComponent* StatusComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UMonsterStatus> StatusClass;
+
+	class UMonsterStatus* StatusWidget;
+
 };

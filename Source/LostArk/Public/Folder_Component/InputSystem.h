@@ -13,7 +13,7 @@ class LOSTARK_API UInputSystem : public UInputComponent
 	GENERATED_BODY()
 protected:
 	class APlayerBase* OwnedPlayer;
-	class AController* PC;
+	class APC_Base* PC;
 
 public:
 	UInputSystem();
