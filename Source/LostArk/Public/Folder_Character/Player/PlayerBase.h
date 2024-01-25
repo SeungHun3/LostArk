@@ -31,6 +31,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = InputSystem)
 	class UWidgetSystem* WidgetSystem;
 
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	class UNiagaraSystem* CursorFX;
+
 	class APC_Base* OwingController;
 
 	// Rotate
@@ -68,6 +71,9 @@ public:
 
 
 	FORCEINLINE EJob  GetJob() { return Job; }
+
+private:
+	void SetCameraMode(bool _IsTop);
 
 	//friend UInputSystem;
 

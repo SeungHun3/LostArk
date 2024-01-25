@@ -7,7 +7,9 @@
 #include "Folder_Character/PC_Base.h"
 #include "Folder_Character/State.h"
 #include "GI_LostArk.h"
-#include "Blueprint/AIBlueprintHelperLibrary.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"	
+#include "NiagaraSystem.h"
+#include "NiagaraFunctionLibrary.h"
 
 APlayerBase::APlayerBase()
 	:OwingController(nullptr)
@@ -17,7 +19,7 @@ APlayerBase::APlayerBase()
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 1400.0f;
+	CameraBoom->TargetArmLength = 1000.0f;
 	CameraBoom->SetRelativeRotation(FRotator(-50.f, 0.f, 0.f));
 	CameraBoom->bUsePawnControlRotation = false;
 	CameraBoom->bInheritPitch = false;
@@ -28,6 +30,8 @@ APlayerBase::APlayerBase()
 	FollowCamera->bUsePawnControlRotation = false;
 	InputSystem = CreateDefaultSubobject<UInputSystem>(TEXT("InputSystem"));
 	WidgetSystem = CreateDefaultSubobject<UWidgetSystem>(TEXT("WidgetSystem"));
+	CursorFX = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Asset/MouseCursor/FX_Cursor"));
+
 	GetMesh()->SetVisibility(false);
 }
 
@@ -66,8 +70,7 @@ void APlayerBase::PossessedBy(AController* NewController)
 	AState* state = NewController->GetPlayerState<AState>();
 	if (state && OwingController)
 	{
-		UE_LOG(LogTemp, Log, TEXT("//state, Controller"));
-		state->Init(1);
+		state->Init(1); // 인게임진입시 데이터 가져오기 => 리팩토링 예정
 	}
 }
 
@@ -80,6 +83,15 @@ void APlayerBase::Move()
 		FHitResult HitResult;
 		OwingController->GetHitResultUnderCursor(ECollisionChannel::ECC_Camera, true, HitResult);
 		UAIBlueprintHelperLibrary::SimpleMoveToLocation(OwingController, HitResult.Location);
+
+		if (CursorFX)
+		{
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, CursorFX, HitResult.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+		}
+		//else // 없다면 디폴트 fx로 교체
+		{
+
+		}
 	}
 }
 
@@ -96,6 +108,12 @@ void APlayerBase::BeginPlay()
 			GetMesh()->SetSkeletalMesh(PlayerInfo->Mesh);
 			Job = PlayerInfo->Job;
 			GetMesh()->SetVisibility(true);
+			SetCameraMode(true);
+		}
+		else
+		{
+			GetMesh()->SetVisibility(false);
+			SetCameraMode(false);
 		}
 	}
 }
@@ -136,4 +154,18 @@ bool APlayerBase::Skill_W()
 		return true;
 	}
 	return false;
+}
+
+void APlayerBase::SetCameraMode(bool _IsTop)
+{
+	if (_IsTop)
+	{
+		CameraBoom->TargetArmLength = 1000.0f;
+		CameraBoom->SetRelativeRotation(FRotator(-50.f, 0.f, 0.f));
+	}
+	else
+	{
+		CameraBoom->TargetArmLength = 300.0f;
+		CameraBoom->SetRelativeRotation(FRotator(0.f, 0.f, 0.f));
+	}
 }

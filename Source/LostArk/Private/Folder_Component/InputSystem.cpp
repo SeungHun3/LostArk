@@ -47,7 +47,7 @@ void UInputSystem::OnSkillPressed(FKey InKey)
 	{
 		OwnedPlayer->Skill(ESkill::Base);
 	}
-	else if (InKey.ToString() == "RightMouseButton")
+	if (InKey.ToString() == "RightMouseButton")
 	{
 		OwnedPlayer->Move();
 	}

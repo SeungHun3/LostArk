@@ -21,7 +21,7 @@ AGM_InGame::AGM_InGame()
 void AGM_InGame::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
-	UE_LOG(LogTemp, Log, TEXT("// PostLogin"));
+	UE_LOG(LogTemp, Log, TEXT("// PostLogin "));
 }
 
 void AGM_InGame::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
