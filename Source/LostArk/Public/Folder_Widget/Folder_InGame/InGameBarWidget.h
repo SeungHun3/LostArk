@@ -1,14 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "InGameBarWidget.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LOSTARK_API UInGameBarWidget : public UUserWidget
 {
@@ -17,7 +13,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
-	class UButton* ShopBTN;
+	class UButton* InventoryBTN;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	class UButton* CharacterBTN;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
@@ -27,7 +23,7 @@ public:
 	TSubclassOf<class UDungeonWidget> DungeonWidget;
 
 	UFUNCTION()
-	void ToggleShop();
+	void ToggleInventory();
 	UFUNCTION()
 	void ToggleCharacter();
 	UFUNCTION()

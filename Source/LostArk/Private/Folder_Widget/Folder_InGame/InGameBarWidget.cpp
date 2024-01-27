@@ -6,11 +6,11 @@ void UInGameBarWidget::NativeConstruct()
 	Super::NativeConstruct();
 	
 	DungeonBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::ToggleDungeon);
-	ShopBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::ToggleShop);
+	InventoryBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::ToggleInventory);
 	CharacterBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::ToggleCharacter);
 }
 
-void UInGameBarWidget::ToggleShop()
+void UInGameBarWidget::ToggleInventory()
 {
 	UE_LOG(LogTemp, Log, TEXT("// ToggleShop"));
 }

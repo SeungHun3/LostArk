@@ -63,9 +63,7 @@ void UWidgetSystem::ShowMainWidget()
 				CurrHUD->AddToViewport();
 			}
 			break;
-		case EScene::Shop:
 
-			break;
 		case EScene::InGame:
 			CurrHUD = CreateWidget<UUserWidget>(GetWorld(), InGameHUD);
 			if (CurrHUD)

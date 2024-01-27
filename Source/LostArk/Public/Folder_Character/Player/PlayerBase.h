@@ -61,6 +61,10 @@ protected:
 	virtual bool Skill_Base() override;
 	virtual bool Skill_Q() override;
 	virtual bool Skill_W() override;
+	
+	// Item
+	void UseItem();
+	void ChangeWeapon();
 
 public:
 

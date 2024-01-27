@@ -13,11 +13,31 @@ enum class EScene : uint8
 	NONE,
 	Lobby,
 	Create,
-	Shop,
 	InGame,
 
 	END,
 };
+
+USTRUCT(BlueprintType)
+struct FITem
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TMap<FString, int> Weapon; // name, count
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int HP_Portion;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int MP_Portion;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int Gold;
+};
+
+
 // 데이터 테이블용
 USTRUCT(Atomic, BlueprintType)
 struct FCharaterInfo : public FTableRowBase
@@ -33,6 +53,8 @@ public:
 };
 
 
+
+
 UCLASS()
 class LOSTARK_API UGI_LostArk : public UGameInstance
 {
@@ -40,6 +62,7 @@ class LOSTARK_API UGI_LostArk : public UGameInstance
 private:
 	EScene currScene;
 	FCharaterInfo* PlayerInfo;
+	FITem* Item;
 
 public:
 	UGI_LostArk();
@@ -48,6 +71,12 @@ public:
 
 	FCharaterInfo* GetPlayerInfo() { return PlayerInfo; }
 	void SetPlayerInfo(FCharaterInfo* _PlayerInfo) { PlayerInfo = _PlayerInfo; }
+
+	FITem* GetItem() { return Item; }
+	void AddHPPortion(int _HPCount) { Item->HP_Portion = Item->HP_Portion + _HPCount; }
+	void AddMPPortion(int _MPCount) { Item->MP_Portion = Item->MP_Portion + _MPCount; }
+	void AddGold(int _Gold) { Item->Gold = Item->Gold + _Gold; }
+
 	EScene GetCurrScene() { return currScene; }
 	void SetCurrScene(EScene _CurrScene) { currScene = _CurrScene; }
 

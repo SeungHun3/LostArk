@@ -156,6 +156,14 @@ bool APlayerBase::Skill_W()
 	return false;
 }
 
+void APlayerBase::UseItem()
+{
+}
+
+void APlayerBase::ChangeWeapon()
+{
+}
+
 void APlayerBase::SetCameraMode(bool _IsTop)
 {
 	if (_IsTop)
