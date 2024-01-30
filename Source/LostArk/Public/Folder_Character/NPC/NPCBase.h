@@ -26,11 +26,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UShopWidget> ShopWidget;
-	bool IsOpenWidget;
+	
 
-	UDataTable* Items;
+	//UDataTable* Items;
 
-	void Clicked();
-
+	UFUNCTION()
+	void ClickedActor(AActor* ClickedActor, FKey ButtonClicked);
 
 };

@@ -83,7 +83,6 @@ void APlayerBase::Move()
 		FHitResult HitResult;
 		OwingController->GetHitResultUnderCursor(ECollisionChannel::ECC_Camera, true, HitResult);
 		UAIBlueprintHelperLibrary::SimpleMoveToLocation(OwingController, HitResult.Location);
-
 		if (CursorFX)
 		{
 			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, CursorFX, HitResult.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);

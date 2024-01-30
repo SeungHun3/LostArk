@@ -15,13 +15,16 @@ enum class EItemType : uint8
 };
 
 USTRUCT(BlueprintType)
-struct FITemInfo : public FTableRowBase
+struct FItemInfo : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class UImage* ItemImage;
+	EItemType ItemType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	class UTexture* ItemTexture;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FString ItemName;
@@ -48,13 +51,19 @@ public:
 	class UButton* BuyBTN;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	class UButton* SellBTN;
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta = (BindWidget))
+	class UExitBTN* ExitShopBTN;
 
 	int ItemCount;
 	UUserWidget* SelectedSlot;
 	UDataTable* CurTable;
 
-	void InitTable(UDataTable* _ItemInfo);
+	void InitShopWidget();
+
+
+	UFUNCTION()
 	void BuyItem();
+	UFUNCTION()
 	void SellItem();
 
 };

@@ -4,32 +4,68 @@
 #include "Components/Button.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
-
+#include "Folder_Widget/ExitBTN.h"
 #include "GI_LostArk.h"
 
 UShopWidget::UShopWidget(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer), ItemCount(1)
 {
-
+	static ConstructorHelpers::FObjectFinder<UDataTable> FindItemTable(TEXT("/Game/DataTable/ItemTable"));
+	if (FindItemTable.Succeeded())
+	{
+		CurTable = FindItemTable.Object;
+	}
+	SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UShopWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+	ExitShopBTN->Parent.Add(this);
+	ExitShopBTN->OnClicked.AddDynamic(ExitShopBTN, &UExitBTN::ExitWidget);
 	BuyBTN->OnClicked.AddDynamic(this, &UShopWidget::BuyItem);
-	SellBTN->OnClicked.AddDynamic(this, &UShopWidget:: SellItem);
+	SellBTN->OnClicked.AddDynamic(this, &UShopWidget::SellItem);
+	InitShopWidget();
 
 }
 
-void UShopWidget::InitTable(UDataTable* _ItemInfo)
+void UShopWidget::InitShopWidget()
 {
-	_ItemInfo = CurTable;
+	SetVisibility(ESlateVisibility::Hidden);
+	for (auto it : SlotUniform->GetAllChildren())
+	{
+		it->SetVisibility(ESlateVisibility::Hidden);
+	}
+
+	int CurrentPage = 0;
+
+	TArray<FItemInfo*> ItemTableRows;
+	if (CurTable)
+	{
+		CurTable->GetAllRows("",ItemTableRows);
+	}
+	
 
 
-	SlotUniform->GetChildrenCount();
+	
+	for(int i = 0; i < SlotUniform->GetChildrenCount(); i++)
+	{
+		if (ItemTableRows.IsValidIndex(CurrentPage + i))
+		{
+			UShopSlotWidget* pSlot = Cast<UShopSlotWidget>(SlotUniform->GetAllChildren()[i]);
+			if (pSlot)
+			{
+				pSlot->SetItem(ItemTableRows[CurrentPage + i]);
+				pSlot->SetVisibility(ESlateVisibility::Visible);
+			}
+		}
+	}
 
-	SlotUniform->GetAllChildren();
+
+	SetVisibility(ESlateVisibility::Visible);
 }
+
+
 
 void UShopWidget::BuyItem()
 {
@@ -40,7 +76,7 @@ void UShopWidget::BuyItem()
 
 	int price = FCString::Atoi(*ShopSlot->Price_Text->GetText().ToString());
 	
-	switch (ShopSlot->ItemType)
+	switch (ShopSlot->ItemInfo->ItemType)
 	{
 	case EItemType::Weapon:
 		break;
@@ -66,4 +102,5 @@ void UShopWidget::SellItem()
 {
 
 
+	UE_LOG(LogTemp, Log, TEXT("//SellItem"));
 }

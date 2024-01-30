@@ -12,12 +12,12 @@ void UInGameBarWidget::NativeConstruct()
 
 void UInGameBarWidget::ToggleInventory()
 {
-	UE_LOG(LogTemp, Log, TEXT("// ToggleShop"));
+	UE_LOG(LogTemp, Log, TEXT("// Toggle Inventory"));
 }
 
 void UInGameBarWidget::ToggleCharacter()
 {
-	UE_LOG(LogTemp, Log, TEXT("// ToggleCharacter"));
+	UE_LOG(LogTemp, Log, TEXT("// Toggle Character"));
 }
 
 void UInGameBarWidget::ToggleDungeon()

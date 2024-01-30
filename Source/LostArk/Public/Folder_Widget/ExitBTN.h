@@ -12,12 +12,9 @@ class LOSTARK_API UExitBTN : public UButton
 {
 	GENERATED_BODY()
 public:
-	//virtual void PostLoad() override;
-
-	class UCanvasPanel* ParentWidget;
+	TArray<class UUserWidget*> Parent;
 
 	UFUNCTION()
 	void ExitWidget();
 
-	UCanvasPanel* FindParent(UPanelWidget* Child, int FindCount);
 };

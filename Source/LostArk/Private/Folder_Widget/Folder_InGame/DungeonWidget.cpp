@@ -12,7 +12,7 @@ void UDungeonWidget::NativeConstruct()
 	UE_LOG(LogTemp, Log, TEXT("// UDungeonWidget"));
 
 	EnterBTN->OnClicked.AddDynamic(this, &UDungeonWidget::Enter);	
-	//ExitDungeonBTN = WidgetTree->ConstructWidget<UExitBTN>(UExitBTN::StaticClass());
+	ExitDungeonBTN->Parent.Add(this);
 	ExitDungeonBTN->OnClicked.AddDynamic(ExitDungeonBTN, &UExitBTN::ExitWidget);
 
 }

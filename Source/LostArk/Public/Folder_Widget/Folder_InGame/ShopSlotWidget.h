@@ -20,7 +20,7 @@ public:
 
 	virtual void NativeConstruct() override;
 
-	EItemType ItemType;
+	FItemInfo* ItemInfo;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	class UImage* Item_Image;
@@ -33,7 +33,7 @@ public:
 	class UButton* SlotBTN;
 
 
-	void SetItem(/*property*/);
+	void SetItem(FItemInfo* _itemInfo);
 	
 
 };

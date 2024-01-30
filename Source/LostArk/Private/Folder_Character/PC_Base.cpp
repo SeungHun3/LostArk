@@ -5,6 +5,10 @@ APC_Base::APC_Base(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer), OwnedPlayer(nullptr)
 {
     bShowMouseCursor = true;
+    bEnableClickEvents = true;
+    bEnableMouseOverEvents = true;
+    bEnableTouchEvents = true;
+    bEnableTouchOverEvents = true;
 }
 
 void APC_Base::OnPossess(APawn* aPawn)
