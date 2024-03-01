@@ -11,8 +11,8 @@ void UDungeonWidget::NativeConstruct()
 	Super::NativeConstruct();
 	UE_LOG(LogTemp, Log, TEXT("// UDungeonWidget"));
 
-	EnterBTN->OnClicked.AddDynamic(this, &UDungeonWidget::Enter);	
-	ExitDungeonBTN->Parent.Add(this);
+	EnterBTN->OnClicked.AddDynamic(this, &UDungeonWidget::Enter);
+	ExitDungeonBTN->Parent = this;
 	ExitDungeonBTN->OnClicked.AddDynamic(ExitDungeonBTN, &UExitBTN::ExitWidget);
 
 }

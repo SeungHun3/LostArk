@@ -1,6 +1,7 @@
 #include "Folder_Widget/Folder_InGame/ShopSlotWidget.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
+#include "Components/Button.h"
 UShopSlotWidget::UShopSlotWidget(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
@@ -10,13 +11,14 @@ UShopSlotWidget::UShopSlotWidget(const FObjectInitializer& ObjectInitializer)
 void UShopSlotWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	SlotBTN->OnClicked.AddDynamic(this, &UShopSlotWidget::ClickedItem);
 
 }
 
-void UShopSlotWidget::SetItem(FItemInfo* _itemInfo)
+void UShopSlotWidget::SetItem(UShopWidget* parent, FItemInfo* itemInfo)
 {
-	ItemInfo = _itemInfo;
+	Parent = parent;
+	ItemInfo = itemInfo;
 	UTexture2D* ItemTexture2D = Cast<UTexture2D>(ItemInfo->ItemTexture);
 	if (ItemTexture2D)
 	{
@@ -26,3 +28,9 @@ void UShopSlotWidget::SetItem(FItemInfo* _itemInfo)
 	Price_Text->SetText(FText::FromString(ItemInfo->Price));
 
 }
+
+void UShopSlotWidget::ClickedItem()
+{
+	Parent->ClickedItem(ItemInfo);
+}
+

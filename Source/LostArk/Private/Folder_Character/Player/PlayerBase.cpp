@@ -6,13 +6,14 @@
 #include "Folder_Component/WidgetSystem.h"
 #include "Folder_Character/PC_Base.h"
 #include "Folder_Character/State.h"
+#include "Folder_Interface/Click.h"
 #include "GI_LostArk.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"	
 #include "NiagaraSystem.h"
 #include "NiagaraFunctionLibrary.h"
 
 APlayerBase::APlayerBase()
-	:OwingController(nullptr)
+	:OwingController(nullptr), ClickedTarget(nullptr)
 {
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
@@ -76,13 +77,32 @@ void APlayerBase::PossessedBy(AController* NewController)
 
 
 
-void APlayerBase::Move()
+void APlayerBase::LeftClicked()
+{
+	//Skill_Base();
+}
+
+void APlayerBase::RightClicked()
+{
+	if (ClickedTarget && (GetActorLocation() - Cast<AActor>(ClickedTarget)->GetActorLocation()).GetAbs().Size() < 500.f) // 거리체크
+	{
+		ClickedTarget->RightClicked();
+		DisableInput(OwingController);
+	}
+	else
+	{
+		Move();
+	}
+}
+
+void APlayerBase::Move() // 몬스터 타겟이 있다면 따라간 후 기본공격
 {
 	if (OwingController)
 	{
 		FHitResult HitResult;
 		OwingController->GetHitResultUnderCursor(ECollisionChannel::ECC_Camera, true, HitResult);
 		UAIBlueprintHelperLibrary::SimpleMoveToLocation(OwingController, HitResult.Location);
+		UE_LOG(LogTemp,Log, TEXT("// Move : %f, %f"), HitResult.Location.X, HitResult.Location.Y);
 		if (CursorFX)
 		{
 			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, CursorFX, HitResult.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);

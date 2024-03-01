@@ -5,6 +5,7 @@
 #include "Blueprint/UserWidget.h"
 #include "ShopWidget.generated.h"
 
+
 UENUM(BlueprintType)
 enum class EItemType : uint8
 {
@@ -54,16 +55,17 @@ public:
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta = (BindWidget))
 	class UExitBTN* ExitShopBTN;
 
+
 	int ItemCount;
 	UUserWidget* SelectedSlot;
 	UDataTable* CurTable;
 
 	void InitShopWidget();
 
-
 	UFUNCTION()
 	void BuyItem();
 	UFUNCTION()
 	void SellItem();
 
+	void ClickedItem(FItemInfo* iteminfo);
 };

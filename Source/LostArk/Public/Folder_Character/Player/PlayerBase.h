@@ -42,6 +42,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	float BaseLookUpRate;
 
+	class IClick* ClickedTarget; // object, npc, ...
 
 protected:
 
@@ -51,6 +52,8 @@ protected:
 	// End of APawn interface
 
 public:
+	virtual void LeftClicked();
+	virtual void RightClicked();
 	virtual void Move();
 protected:
 	virtual void BeginPlay() override;

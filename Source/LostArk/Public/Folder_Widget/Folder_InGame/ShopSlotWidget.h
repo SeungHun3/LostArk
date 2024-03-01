@@ -21,6 +21,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	FItemInfo* ItemInfo;
+	class UShopWidget* Parent;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 	class UImage* Item_Image;
@@ -33,7 +34,8 @@ public:
 	class UButton* SlotBTN;
 
 
-	void SetItem(FItemInfo* _itemInfo);
-	
+	void SetItem(UShopWidget* parent, FItemInfo* itemInfo);
+	UFUNCTION()
+	void ClickedItem();
 
 };

@@ -45,11 +45,11 @@ void UInputSystem::OnSkillPressed(FKey InKey)
 {
 	if (InKey.ToString() == "LeftMouseButton")
 	{
-		OwnedPlayer->Skill(ESkill::Base);
+		OwnedPlayer->LeftClicked();
 	}
 	if (InKey.ToString() == "RightMouseButton")
 	{
-		OwnedPlayer->Move();
+		OwnedPlayer->RightClicked();
 	}
 
 	// num1 num2.. 및 마우스 입력 제외

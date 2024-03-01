@@ -21,7 +21,7 @@ UShopWidget::UShopWidget(const FObjectInitializer& ObjectInitializer)
 void UShopWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	ExitShopBTN->Parent.Add(this);
+	ExitShopBTN->Parent = this;
 	ExitShopBTN->OnClicked.AddDynamic(ExitShopBTN, &UExitBTN::ExitWidget);
 	BuyBTN->OnClicked.AddDynamic(this, &UShopWidget::BuyItem);
 	SellBTN->OnClicked.AddDynamic(this, &UShopWidget::SellItem);
@@ -55,7 +55,7 @@ void UShopWidget::InitShopWidget()
 			UShopSlotWidget* pSlot = Cast<UShopSlotWidget>(SlotUniform->GetAllChildren()[i]);
 			if (pSlot)
 			{
-				pSlot->SetItem(ItemTableRows[CurrentPage + i]);
+				pSlot->SetItem(this, ItemTableRows[CurrentPage + i]);
 				pSlot->SetVisibility(ESlateVisibility::Visible);
 			}
 		}
@@ -103,4 +103,8 @@ void UShopWidget::SellItem()
 
 
 	UE_LOG(LogTemp, Log, TEXT("//SellItem"));
+}
+
+void UShopWidget::ClickedItem(FItemInfo* iteminfo)
+{
 }
