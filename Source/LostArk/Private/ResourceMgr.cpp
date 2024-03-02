@@ -26,8 +26,6 @@ FString ResourceMgr::GetInGamePlayerRes(EJob _EJob)
 		break;
 	case EJob::Hunter:
 		break;
-	case EJob::Monster:
-		break;
 	case EJob::END:
 		break;
 	default:
@@ -62,8 +60,6 @@ FString ResourceMgr::GetSkill_QRes(EJob _EJob)
 		break;
 	case EJob::Hunter:
 		break;
-	case EJob::Monster:
-		break;
 	case EJob::END:
 		break;
 	default:
@@ -82,8 +78,6 @@ FString ResourceMgr::GetSkill_WRes(EJob _EJob)
 	case EJob::Warrior:
 		break;
 	case EJob::Hunter:
-		break;
-	case EJob::Monster:
 		break;
 	case EJob::END:
 		break;
@@ -104,8 +98,6 @@ FString ResourceMgr::GetSkill_ERes(EJob _EJob)
 		break;
 	case EJob::Hunter:
 		break;
-	case EJob::Monster:
-		break;
 	case EJob::END:
 		break;
 	default:
@@ -124,8 +116,6 @@ FString ResourceMgr::GetSkill_RRes(EJob _EJob)
 	case EJob::Warrior:
 		break;
 	case EJob::Hunter:
-		break;
-	case EJob::Monster:
 		break;
 	case EJob::END:
 		break;

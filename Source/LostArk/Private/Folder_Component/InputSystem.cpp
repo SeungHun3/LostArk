@@ -1,11 +1,9 @@
 #include "Folder_Component/InputSystem.h"
 #include "Framework/Commands/InputChord.h"
 #include "Folder_Character/Player/PlayerBase.h"
-#include "Folder_Character/PC_Base.h"
 
 UInputSystem::UInputSystem()
 	: OwnedPlayer(nullptr)
-	, PC(nullptr)
 {
 	UE_LOG(LogTemp, Log, TEXT("// UInputSystem"));
 	OwnedPlayer = Cast<APlayerBase>(GetOwner());

@@ -19,38 +19,23 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Speed;
 
-	class APlayerBase* Player;
+	class ACharacterBase* Player;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESkill Skill;
 
-
-	// Skill Base
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int BaseCombo;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool Pressed_SkillBase;
-
-	bool BaseOpen;
-
-	// Skill Base
+	// Skill state
 	UFUNCTION()
-	void Skill_Base();
+	void StateBaseAttack();
 
 	UFUNCTION()
-	void AnimNotify_SKillBase_Open();
-	UFUNCTION()
-	void AnimNotify_SKillBase_StartCombo();
-
-
+	void StateNone();
 
 	UFUNCTION()
-	void Skill_Q();
-	UFUNCTION()
-	void Skill_W();
+	void AnimNotify_BaseAttackEnd();
 
-	void ChangeState(ESkill _type);
-
+	void ChangeState(ESkill eSkill);
+	ESkill GetAnimState() {		return Skill;	}
 
 	// Executed when begin play is called on the owning component
 	virtual void NativeBeginPlay();

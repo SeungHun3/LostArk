@@ -12,5 +12,6 @@ void UExitBTN::ExitWidget()
 	if (player)
 	{
 		player->EnableInput(player->OwingController);
+		player->SetMovement(true);
 	}
 }

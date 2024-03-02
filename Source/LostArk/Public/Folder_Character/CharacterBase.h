@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "../Folder_Interface/Skill.h"
-#include "ResourceMgr.h"
 #include "GameFramework/Character.h"
 #include "CharacterBase.generated.h"
 
@@ -19,7 +18,7 @@ private:
 	int MaxMP; 
 	int MP;
 	int SP;
-	int restAP;
+	int RestAP;
 
 	int Power;
 	int Defence;
@@ -47,12 +46,11 @@ public:
 
 	FTotalInfo()
 		: Level(1)
-		, MaxHP(100), HP(100), MaxMP(100), MP(100), SP(10), restAP(0)
+		, MaxHP(100), HP(100), MaxMP(100), MP(100), SP(10), RestAP(0)
 		, Power(10), Defence(3)
 	{}
 
 };
-
 
 UCLASS()
 class LOSTARK_API ACharacterBase : public ACharacter, public ISkill
@@ -60,25 +58,17 @@ class LOSTARK_API ACharacterBase : public ACharacter, public ISkill
 	GENERATED_BODY()
 public:
 	ACharacterBase();
-	virtual void Tick(float DeltaTime) override;
-	virtual void BeginPlay() override;
-
 
 	//////////////////////////////////////////////////
 	// property
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
 	FTotalInfo TotalInfo;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
-	EJob Job;
 
+	void SetMovement(bool CanMove);
 
 protected:
 	// skill interface
-	virtual bool Skill_Base() override;
-	virtual bool Skill_Q() override;
-	virtual bool Skill_W() override;
-
-	bool AnimStateCheck(ESkill _type);
+	virtual void Skill(ESkill eSkill) override;
 
 };

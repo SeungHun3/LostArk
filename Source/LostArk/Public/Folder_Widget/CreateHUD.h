@@ -31,7 +31,7 @@ public:
 	class UButton* CreateBTN;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	class ACharacterBase* TargetCharacter;
+	class APlayerBase* TargetCharacter;
 
 	FTimerHandle TimerHandle;
 

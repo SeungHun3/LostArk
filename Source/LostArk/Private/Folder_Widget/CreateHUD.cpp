@@ -5,7 +5,7 @@
 #include "GI_LostArk.h"
 
 #include "Folder_Character/PC_Base.h"
-#include "Folder_Character/CharacterBase.h"
+#include "Folder_Character/Player/PlayerBase.h"
 #include "Folder_Component/InputSystem.h"
 
 #include "GI_LostArk.h"
@@ -23,7 +23,7 @@ void UCreateHUD::NativeConstruct()
 	}
 
 
-	for (TActorIterator<ACharacterBase> ActorItr(GetWorld(), ACharacterBase::StaticClass()); ActorItr; ++ActorItr)
+	for (TActorIterator<APlayerBase> ActorItr(GetWorld(), APlayerBase::StaticClass()); ActorItr; ++ActorItr)
 	{
 		TargetCharacter = *ActorItr;
 		if (TargetCharacter && TargetCharacter->ActorHasTag("Target"))

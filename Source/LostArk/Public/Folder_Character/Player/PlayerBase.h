@@ -1,8 +1,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ResourceMgr.h"
 #include "Folder_Character/CharacterBase.h"
 #include "PlayerBase.generated.h"
+
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDelegate_Skill);
 
@@ -44,6 +46,9 @@ public:
 
 	class IClick* ClickedTarget; // object, npc, ...
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Info)
+	EJob Job;
+
 protected:
 
 	// APawn interface
@@ -61,9 +66,10 @@ protected:
 	virtual void LevelUp();
 
 	// skill interface
-	virtual bool Skill_Base() override;
-	virtual bool Skill_Q() override;
-	virtual bool Skill_W() override;
+	virtual void Skill(ESkill eSkill) override;
+
+	// skill
+	virtual void Skill_Base();
 	
 	// Item
 	void UseItem();
@@ -71,7 +77,7 @@ protected:
 
 public:
 
-	FDelegate_Skill Delegate_Skill_Base, Delegate_Skill_Q, Delegate_Skill_W, Delegate_Skill_E, Delegate_Skill_R;
+	FDelegate_Skill Delegate_Skill_Base;
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
@@ -82,6 +88,6 @@ public:
 private:
 	void SetCameraMode(bool _IsTop);
 
-	//friend UInputSystem;
+	friend UInputSystem;
 
 };

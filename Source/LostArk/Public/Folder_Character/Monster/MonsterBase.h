@@ -15,6 +15,7 @@ class LOSTARK_API AMonsterBase : public ACharacterBase
 	GENERATED_BODY()
 public:
 	AMonsterBase();
+	int Gold;
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

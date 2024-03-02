@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "Folder_Character/CharacterBase.h"
+#include "Folder_Character/Player/PlayerBase.h"
 #include "GI_LostArk.generated.h"
 
 UENUM(BlueprintType)

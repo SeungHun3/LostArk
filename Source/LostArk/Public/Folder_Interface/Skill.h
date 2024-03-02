@@ -17,7 +17,6 @@ enum class ESkill : uint8
 	END,
 };
 
-// This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class USkill : public UInterface
 {
@@ -31,12 +30,8 @@ class LOSTARK_API ISkill
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	virtual void Skill(ESkill _type);
-	virtual bool Skill_Base() = 0;
-	virtual bool Skill_Q() = 0;
-	virtual bool Skill_W() = 0;
+	virtual void Skill(ESkill _type) = 0;
 
 };

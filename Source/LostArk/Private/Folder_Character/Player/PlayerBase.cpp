@@ -1,5 +1,6 @@
 #include "Folder_Character/Player/PlayerBase.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "Folder_Component/InputSystem.h"
@@ -11,9 +12,10 @@
 #include "Blueprint/AIBlueprintHelperLibrary.h"	
 #include "NiagaraSystem.h"
 #include "NiagaraFunctionLibrary.h"
+#include "Folder_Anim/AnimBase_Character.h"
 
 APlayerBase::APlayerBase()
-	:OwingController(nullptr), ClickedTarget(nullptr)
+	:OwingController(nullptr), ClickedTarget(nullptr), Job(EJob::None)
 {
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
@@ -88,6 +90,7 @@ void APlayerBase::RightClicked()
 	{
 		ClickedTarget->RightClicked();
 		DisableInput(OwingController);
+		SetMovement(false);
 	}
 	else
 	{
@@ -142,37 +145,25 @@ void APlayerBase::LevelUp()
 	UE_LOG(LogTemp, Log, TEXT("// LevelUp"));
 }
 
-
-bool APlayerBase::Skill_Base()
+void APlayerBase::Skill(ESkill eSkill)
 {
-	if (ACharacterBase::Skill_Base())
+	switch (eSkill)
 	{
+	case ESkill::Base:
+		Skill_Base();
+		break;
+	}
+}
+
+void APlayerBase::Skill_Base()
+{
+	UAnimBase_Character* anim = Cast<UAnimBase_Character>(GetMesh()->GetAnimInstance());
+	if (anim && anim->GetAnimState() == ESkill::NONE)
+	{
+		SetMovement(false);
+		anim->ChangeState(ESkill::Base);
 		Delegate_Skill_Base.Broadcast();
-		return true;
 	}
-	return false;
-}
-
-bool APlayerBase::Skill_Q()
-{
-	if (ACharacterBase::Skill_Q())
-	{
-		UE_LOG(LogTemp, Log, TEXT("// Skill_Q"));
-		Delegate_Skill_Q.Broadcast();
-		return true;
-	}
-	return false;
-}
-
-bool APlayerBase::Skill_W()
-{
-	if (ACharacterBase::Skill_W())
-	{
-		UE_LOG(LogTemp, Log, TEXT("// Skill_W"));
-		Delegate_Skill_W.Broadcast();
-		return true;
-	}
-	return false;
 }
 
 void APlayerBase::UseItem()

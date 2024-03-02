@@ -3,7 +3,6 @@
 #include "Components/WidgetComponent.h"
 AMonsterBase::AMonsterBase()
 {
-	Job = EJob::Monster;
 	Tags.Add("Monster");
 	StatusComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("MonsterWidget"));
 	StatusComponent->SetupAttachment(RootComponent);
