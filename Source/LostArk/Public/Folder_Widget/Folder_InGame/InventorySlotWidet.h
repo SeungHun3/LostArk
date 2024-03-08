@@ -11,6 +11,6 @@ class LOSTARK_API UInventorySlotWidet : public UUserWidget
 
 public:
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta = (BindWidget))
-	class USizeBox* SizeBox;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
+	class USizeBox* SlotSizeBox;
 };

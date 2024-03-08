@@ -16,5 +16,6 @@ public:
 
 	UFUNCTION()
 	void ExitWidget();
-
+	UFUNCTION()
+	void BindWidget(UUserWidget* parent);
 };

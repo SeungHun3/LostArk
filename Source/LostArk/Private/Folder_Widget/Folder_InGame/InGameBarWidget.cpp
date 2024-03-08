@@ -1,30 +1,36 @@
 #include "Folder_Widget/Folder_InGame/InGameBarWidget.h"
 #include "Folder_Widget/Folder_InGame/DungeonWidget.h"
+#include "Folder_Widget/Folder_InGame/InventoryWidget.h"
 #include "Components/Button.h"
 void UInGameBarWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 	
-	DungeonBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::ToggleDungeon);
-	InventoryBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::ToggleInventory);
-	CharacterBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::ToggleCharacter);
+	DungeonBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::OpenDungeon);
+	InventoryBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::OpenInventory);
+	CharacterBTN->OnClicked.AddDynamic(this, &UInGameBarWidget::OpenCharacter);
 }
 
-void UInGameBarWidget::ToggleInventory()
+void UInGameBarWidget::OpenInventory()
 {
-	UE_LOG(LogTemp, Log, TEXT("// Toggle Inventory"));
+	ShowWidget(InventoryClass);
 }
 
-void UInGameBarWidget::ToggleCharacter()
+void UInGameBarWidget::OpenCharacter()
 {
 	UE_LOG(LogTemp, Log, TEXT("// Toggle Character"));
 }
 
-void UInGameBarWidget::ToggleDungeon()
+void UInGameBarWidget::OpenDungeon()
 {
-	if (DungeonWidget)
+	ShowWidget(DungeonClass);
+}
+
+void UInGameBarWidget::ShowWidget(UClass* widget)
+{
+	if (widget)
 	{
-		UUserWidget* ShowWidget = CreateWidget<UUserWidget>(GetWorld(), DungeonWidget);
+		UUserWidget* ShowWidget = CreateWidget<UUserWidget>(GetWorld(), widget);
 		if (ShowWidget)
 		{
 			ShowWidget->AddToViewport();

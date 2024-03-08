@@ -20,12 +20,17 @@ public:
 	class UButton* DungeonBTN;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UDungeonWidget> DungeonWidget;
+	TSubclassOf<class UDungeonWidget> DungeonClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UInventoryWidget> InventoryClass;
+
 
 	UFUNCTION()
-	void ToggleInventory();
+	void OpenInventory();
 	UFUNCTION()
-	void ToggleCharacter();
+	void OpenCharacter();
 	UFUNCTION()
-	void ToggleDungeon();
+	void OpenDungeon();
+
+	void ShowWidget(UClass* widget);
 };
