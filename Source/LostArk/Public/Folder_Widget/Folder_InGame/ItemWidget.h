@@ -2,15 +2,15 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "InventorySlotWidet.generated.h"
+#include "ItemWidget.generated.h"
 
 UCLASS()
-class LOSTARK_API UInventorySlotWidet : public UUserWidget
+class LOSTARK_API UItemWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
 public:
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
-	class USizeBox* SlotSizeBox;
+	class USizeBox* ItemSizeBox;
+	
 };
