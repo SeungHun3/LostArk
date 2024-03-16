@@ -3,7 +3,7 @@
 AMonsterWolf::AMonsterWolf()
 {
 	Tags.Add("Wolf");
-
+	Type = EMonster::Wolf;
 	TotalInfo.SetLevel(2);
 	TotalInfo.SetMaxHP(50.f);
 	TotalInfo.SetHP(50.f);

@@ -2,6 +2,7 @@
 #include "Folder_Widget/Folder_InGame/MonsterStatus.h"
 #include "Components/WidgetComponent.h"
 AMonsterBase::AMonsterBase()
+	:Type(EMonster::None)
 {
 	Tags.Add("Monster");
 	StatusComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("MonsterWidget"));
@@ -24,4 +25,5 @@ void AMonsterBase::BeginPlay()
 		StatusWidget->InitWidget(Tags[Tags.Num() - 1].ToString());
 	}
 
+	GetMesh()->SetSkeletalMesh(ResourceMgr::GetInst()->GetMonsterMesh(Type));
 }

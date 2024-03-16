@@ -1,38 +1,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataTable.h"
+#include "GI_LostArk.h"
 #include "Blueprint/UserWidget.h"
 #include "ShopWidget.generated.h"
 
 
-UENUM(BlueprintType)
-enum class EItemType : uint8
-{
-	NONE,
-	Weapon,
-	HP,
-	MP,
-};
 
-USTRUCT(BlueprintType)
-struct FItemInfo : public FTableRowBase
-{
-	GENERATED_USTRUCT_BODY()
-
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	EItemType ItemType;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class UTexture* ItemTexture;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FString ItemName;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FString Price;
-};
 
 
 UCLASS()
@@ -54,10 +28,11 @@ public:
 	class UButton* SellBTN;
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta = (BindWidget))
 	class UExitBTN* ExitShopBTN;
-
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta = (BindWidget))
+	class UTextBlock* OwnGoldText;
 
 	int ItemCount;
-	UUserWidget* SelectedSlot;
+	FItemInfo* SelectedItem;
 	UDataTable* CurTable;
 
 	void InitShopWidget();

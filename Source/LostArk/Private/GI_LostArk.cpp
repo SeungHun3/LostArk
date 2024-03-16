@@ -5,11 +5,12 @@
 UGI_LostArk::UGI_LostArk()
 	: currScene(EScene::NONE)
 {
-	static ConstructorHelpers::FObjectFinder<UDataTable> JobMeshTableSearch(TEXT("/Game/DataTable/MeshTable"));
-	if (JobMeshTableSearch.Succeeded())
-	{
-		JobMeshTable = JobMeshTableSearch.Object;
-	}
+	PlayerInfo = new FCharaterInfo();
+}
+
+UGI_LostArk::~UGI_LostArk()
+{
+	delete PlayerInfo;
 }
 
 void UGI_LostArk::ChangeLevel(float _CameraTime, const FName& _LevelName)

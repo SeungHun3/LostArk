@@ -3,6 +3,7 @@
 AMonsterOak::AMonsterOak()
 {
 	Tags.Add("Oak");
+	Type = EMonster::Oak;
 
 	TotalInfo.SetLevel(5);
 	TotalInfo.SetMaxHP(100.f);
@@ -12,4 +13,5 @@ AMonsterOak::AMonsterOak()
 	TotalInfo.SetPower(10);
 	TotalInfo.SetDefence(3);
 	TotalInfo.SetSP(7);
+
 }

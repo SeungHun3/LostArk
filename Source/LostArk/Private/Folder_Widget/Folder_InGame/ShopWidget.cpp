@@ -5,10 +5,10 @@
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "Folder_Widget/ExitBTN.h"
-#include "GI_LostArk.h"
+
 
 UShopWidget::UShopWidget(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer), ItemCount(1)
+	:Super(ObjectInitializer), ItemCount(1), SelectedItem(nullptr)
 {
 	static ConstructorHelpers::FObjectFinder<UDataTable> FindItemTable(TEXT("/Game/DataTable/ItemTable"));
 	if (FindItemTable.Succeeded())
@@ -60,6 +60,11 @@ void UShopWidget::InitShopWidget()
 			}
 		}
 	}
+	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
+	if (pGI)
+	{
+		OwnGoldText->SetText(FText::FromString(FString::FromInt(pGI->GetPlayerInfo()->Gold)));
+	}
 
 
 	SetVisibility(ESlateVisibility::Visible);
@@ -70,32 +75,16 @@ void UShopWidget::InitShopWidget()
 void UShopWidget::BuyItem()
 {
 	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
-	UShopSlotWidget* ShopSlot = Cast<UShopSlotWidget>(SelectedSlot);
-	if (!pGI && !ShopSlot)
+	if (!pGI || !SelectedItem)
 		return;
 
-	int price = FCString::Atoi(*ShopSlot->Price_Text->GetText().ToString());
-	
-	switch (ShopSlot->ItemInfo->ItemType)
-	{
-	case EItemType::Weapon:
-		break;
+	int price = SelectedItem->Price;
+	int ownGold = pGI->GetPlayerInfo()->Gold;
 
-	case EItemType::HP:
-		if (pGI)
-		{
-			pGI->AddHPPortion(ItemCount);
-			int ConsumeGold = ItemCount * price * -1;
-			pGI->AddGold(ConsumeGold);
-		}
-		// 플레이어 인벤토리 위젯 변경 => ( 인스턴스 프로퍼티 바인딩으로 예정)
+	if (price > ownGold)
+		return;
 
-		break;
-	case EItemType::MP:
-		break;
-	default:
-		break;
-	}
+	pGI->AddItem(SelectedItem->SerialNum, 1);
 }
 
 void UShopWidget::SellItem()
@@ -107,4 +96,5 @@ void UShopWidget::SellItem()
 
 void UShopWidget::ClickedItem(FItemInfo* iteminfo)
 {
+	SelectedItem = iteminfo;
 }

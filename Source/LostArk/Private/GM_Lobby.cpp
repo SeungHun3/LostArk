@@ -5,7 +5,7 @@
 #include "Folder_Character/Player/PlayerBase.h"
 AGM_Lobby::AGM_Lobby()
 {
-	FString PlayerRes = ResourceMgr::GetInst()->GetLobbyPlayerRes();
+	FString PlayerRes = ResourceMgr::GetInst()->GetLobbyPlayerBP_Path();
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass((TEXT("%s"), *PlayerRes));
 	if (PlayerPawnBPClass.Class != NULL)
 	{

@@ -25,7 +25,7 @@ void UShopSlotWidget::SetItem(UShopWidget* parent, FItemInfo* itemInfo)
 		Item_Image->SetBrushFromTexture(ItemTexture2D);
 	}
 	Item_Name->SetText(FText::FromString(ItemInfo->ItemName));
-	Price_Text->SetText(FText::FromString(ItemInfo->Price));
+	Price_Text->SetText(FText::FromString(FString::FromInt(ItemInfo->Price)));
 
 }
 

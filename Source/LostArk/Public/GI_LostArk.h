@@ -17,39 +17,50 @@ enum class EScene : uint8
 
 	END,
 };
+UENUM(BlueprintType)
+enum class EItemType : uint8
+{
+	NONE,
+	Weapon,
+	HP,
+	MP,
+};
 
 USTRUCT(BlueprintType)
-struct FITem
+struct FItemInfo : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TMap<FString, int> Weapon; // name, count
+	int SerialNum;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int HP_Portion;
+	EItemType ItemType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int MP_Portion;
+	class UTexture* ItemTexture;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int Gold;
+	FString ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int Price;
 };
 
 
-// 데이터 테이블용
+
 USTRUCT(Atomic, BlueprintType)
-struct FCharaterInfo : public FTableRowBase
+struct FCharaterInfo
 {
 	GENERATED_USTRUCT_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	USkeletalMesh* Mesh;
+	EJob Job;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	EJob Job;
+	int Gold = 100;
 };
 
 
@@ -62,21 +73,27 @@ class LOSTARK_API UGI_LostArk : public UGameInstance
 private:
 	EScene currScene;
 	FCharaterInfo* PlayerInfo;
-	FITem* Item;
+	TMap<int, int> Items;
 
 public:
 	UGI_LostArk();
-
-	UDataTable* JobMeshTable;
-
+	~UGI_LostArk();
 	FCharaterInfo* GetPlayerInfo() { return PlayerInfo; }
-	void SetPlayerInfo(FCharaterInfo* _PlayerInfo) { PlayerInfo = _PlayerInfo; }
+	void SetPlayerInfo(EJob Job) { PlayerInfo->Job = Job; }
 
-	FITem* GetItem() { return Item; }
-	void AddHPPortion(int _HPCount) { Item->HP_Portion = Item->HP_Portion + _HPCount; }
-	void AddMPPortion(int _MPCount) { Item->MP_Portion = Item->MP_Portion + _MPCount; }
-	void AddGold(int _Gold) { Item->Gold = Item->Gold + _Gold; }
-
+	TMap<int, int> GetItem() { return Items; }
+	void AddItem(int serialNum, int count)
+	{ 
+		if (Items.Contains(serialNum))
+		{
+			int* ItemCount = Items.Find(serialNum);
+			*ItemCount += count;
+		}
+		else
+		{
+			Items.Add(serialNum, count);
+		}
+	}
 	EScene GetCurrScene() { return currScene; }
 	void SetCurrScene(EScene _CurrScene) { currScene = _CurrScene; }
 

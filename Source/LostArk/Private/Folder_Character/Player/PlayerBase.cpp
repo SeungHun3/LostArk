@@ -125,9 +125,10 @@ void APlayerBase::BeginPlay()
 	if (pGI)
 	{
 		FCharaterInfo* PlayerInfo = pGI->GetPlayerInfo();
-		if ((pGI->GetCurrScene() == EScene::InGame) && (PlayerInfo))
+		USkeletalMesh* PlayerMesh = ResourceMgr::GetInst()->GetPlayerMesh(PlayerInfo->Job);
+		if ((pGI->GetCurrScene() == EScene::InGame) && PlayerMesh)
 		{
-			GetMesh()->SetSkeletalMesh(PlayerInfo->Mesh);
+			GetMesh()->SetSkeletalMesh(PlayerMesh);
 			Job = PlayerInfo->Job;
 			GetMesh()->SetVisibility(true);
 			SetCameraMode(true);

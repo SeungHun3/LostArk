@@ -3,12 +3,11 @@
 #include "Components/TextBlock.h"
 
 #include "GI_LostArk.h"
-
+#include "ResourceMgr.h"
 #include "Folder_Character/PC_Base.h"
 #include "Folder_Character/Player/PlayerBase.h"
 #include "Folder_Component/InputSystem.h"
 
-#include "GI_LostArk.h"
 #include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -23,17 +22,19 @@ void UCreateHUD::NativeConstruct()
 	}
 
 
-	for (TActorIterator<APlayerBase> ActorItr(GetWorld(), APlayerBase::StaticClass()); ActorItr; ++ActorItr)
+	for (TActorIterator<ACharacterBase> ActorItr(GetWorld(), ACharacterBase::StaticClass()); ActorItr; ++ActorItr)
 	{
 		TargetCharacter = *ActorItr;
 		if (TargetCharacter && TargetCharacter->ActorHasTag("Target"))
 		{
-			TargetCharacter->Job = EJob::Warrior;
+			Job = EJob::Warrior;
 			JobName->SetText(FText::FromString("Warrior"));
-			FCharaterInfo* TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Warrior"), "");
-			if (TargetInfo)
+			
+			USkeletalMesh* Mesh = ResourceMgr::GetInst()->GetPlayerMesh(Job);
+			if (Mesh)
 			{
-				pGI->SetPlayerInfo(TargetInfo);
+				TargetCharacter->GetMesh()->SetSkeletalMesh(Mesh);
+				pGI->SetPlayerInfo(Job);
 			}
 
 			break;
@@ -53,36 +54,24 @@ void UCreateHUD::ClickedJob()
 
 	if (pGI && TargetCharacter)
 	{
-		FCharaterInfo* TargetInfo = nullptr;
-		TargetCharacter->Job == EJob::Warrior ? TargetCharacter->Job = EJob::Hunter : TargetCharacter->Job = EJob::Warrior;
+		Job = Job == EJob::Warrior ? EJob::Hunter : EJob::Warrior;
+		USkeletalMesh* Mesh = ResourceMgr::GetInst()->GetPlayerMesh(Job);
+		if (!Mesh)
+			return;
 
-
-		switch (TargetCharacter->Job)
+		switch (Job)
 		{
 		case EJob::Warrior:
-		
-			TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Warrior"), "");
-			if (TargetInfo && TargetInfo->Mesh)
-			{
-				TargetCharacter->GetMesh()->SetSkeletalMesh(TargetInfo->Mesh);
-				JobName->SetText(FText::FromString("Warrior"));
-				pGI->SetPlayerInfo(TargetInfo);
-			}
-			
-			break;
-		
-		case EJob::Hunter:
-			TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Hunter"), "");
-			if (TargetInfo && TargetInfo->Mesh)
-			{
-				TargetCharacter->GetMesh()->SetSkeletalMesh(TargetInfo->Mesh);
-				JobName->SetText(FText::FromString("Hunter"));
-				pGI->SetPlayerInfo(TargetInfo);
-			}
-		
+			JobName->SetText(FText::FromString("Warrior"));
 			break;
 
+		case EJob::Hunter:
+			JobName->SetText(FText::FromString("Hunter"));
+			break;
 		}
+
+		TargetCharacter->GetMesh()->SetSkeletalMesh(Mesh);
+		pGI->SetPlayerInfo(Job);
 	}
 }
 

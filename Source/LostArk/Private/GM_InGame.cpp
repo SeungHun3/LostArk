@@ -6,7 +6,7 @@
 
 AGM_InGame::AGM_InGame()
 {
-	FString PlayerRes = ResourceMgr::GetInst()->GetInGamePlayerRes(EJob::None);
+	FString PlayerRes = ResourceMgr::GetInst()->GetInGamePlayerBP_Path(EJob::None);
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass((TEXT("%s"), *PlayerRes));
 	if (PlayerPawnBPClass.Class != NULL)
 	{

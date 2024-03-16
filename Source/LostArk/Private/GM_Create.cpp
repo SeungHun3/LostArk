@@ -5,7 +5,7 @@
 
 AGM_Create::AGM_Create()
 {
-	FString PlayerRes = ResourceMgr::GetInst()->GetCreatePlayerRes();
+	FString PlayerRes = ResourceMgr::GetInst()->GetCreatePlayerBP_Path();
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass((TEXT("%s"), *PlayerRes));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
@@ -14,7 +14,7 @@ AGM_Create::AGM_Create()
 
 	PlayerControllerClass = APC_Base::StaticClass();
 
-	ResourceMgr::GetInst()->GetCreateTargetRes();
+	ResourceMgr::GetInst()->GetCreateTargetBP_Path();
 }
 
 void AGM_Create::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)

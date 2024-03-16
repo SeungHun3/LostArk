@@ -15,42 +15,67 @@ ResourceMgr::~ResourceMgr()
 
 
 
-FString ResourceMgr::GetInGamePlayerRes(EJob _EJob)
+FString ResourceMgr::GetInGamePlayerBP_Path(EJob _EJob)
 {
 	FString PlayerRes = "/Game/Character/Player/BP_InGamePlayer";
+	return PlayerRes;
+}
+
+FString ResourceMgr::GetLobbyPlayerBP_Path()
+{
+	return FString("/Game/Character/Player/BP_LobbyPlayer");
+}
+
+FString ResourceMgr::GetCreatePlayerBP_Path()
+{
+	return FString("/Game/Character/Player/BP_CreatePlayer");
+}
+
+FString ResourceMgr::GetCreateTargetBP_Path()
+{
+	return FString("/Game/Character/BP_CreateTarget");
+}
+
+USkeletalMesh* ResourceMgr::GetPlayerMesh(EJob _EJob)
+{
+	USkeletalMesh* Mesh = nullptr;
 	switch (_EJob)
 	{
 	case EJob::None:
 		break;
 	case EJob::Warrior:
+		Mesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Resourses/ParagonYin/Yin.Yin"));
 		break;
+
 	case EJob::Hunter:
+
 		break;
-	case EJob::END:
+	}
+
+	return Mesh;
+}
+
+USkeletalMesh* ResourceMgr::GetMonsterMesh(EMonster _Type)
+{
+	switch (_Type)
+	{
+	case EMonster::None:
+		break;
+	case EMonster::Oak:
+		OakMesh = (!OakMesh) ? LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Resourses/Goblin/SK_Epic_Goblin")) : OakMesh;
+		return OakMesh;
+	case EMonster::Wolf:
+		WolfMesh = (!WolfMesh) ? LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Resourses/Wolf/SK_Wolf")) : WolfMesh;
+		return WolfMesh;
+	case EMonster::END:
 		break;
 	default:
 		break;
 	}
-
-	return PlayerRes;
+	return nullptr;
 }
 
-FString ResourceMgr::GetLobbyPlayerRes()
-{
-	return FString("/Game/Character/Player/BP_LobbyPlayer");
-}
-
-FString ResourceMgr::GetCreatePlayerRes()
-{
-	return FString("/Game/Character/Player/BP_CreatePlayer");
-}
-
-FString ResourceMgr::GetCreateTargetRes()
-{
-	return FString("/Game/Character/BP_CreateTarget");
-}
-
-FString ResourceMgr::GetSkill_QRes(EJob _EJob)
+FString ResourceMgr::GetSkill_QPath(EJob _EJob)
 {
 	switch (_EJob)
 	{
@@ -69,7 +94,7 @@ FString ResourceMgr::GetSkill_QRes(EJob _EJob)
 	return FString("/Game/Widget/InGame/M_Skill/M_Skill_Q");
 }
 
-FString ResourceMgr::GetSkill_WRes(EJob _EJob)
+FString ResourceMgr::GetSkill_WPath(EJob _EJob)
 {
 	switch (EJob::None)
 	{
@@ -88,7 +113,7 @@ FString ResourceMgr::GetSkill_WRes(EJob _EJob)
 	return FString("/Game/Widget/InGame/M_Skill/M_Skill_W");
 }
 
-FString ResourceMgr::GetSkill_ERes(EJob _EJob)
+FString ResourceMgr::GetSkill_EPath(EJob _EJob)
 {
 	switch (_EJob)
 	{
@@ -107,7 +132,7 @@ FString ResourceMgr::GetSkill_ERes(EJob _EJob)
 	return FString("/Game/Widget/InGame/M_Skill/M_Skill_E");
 }
 
-FString ResourceMgr::GetSkill_RRes(EJob _EJob)
+FString ResourceMgr::GetSkill_RPath(EJob _EJob)
 {
 	switch (_EJob)
 	{

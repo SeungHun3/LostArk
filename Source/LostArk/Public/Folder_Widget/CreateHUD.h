@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "ResourceMgr.h"
 #include "CreateHUD.generated.h"
 
 /**
@@ -31,7 +32,9 @@ public:
 	class UButton* CreateBTN;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	class APlayerBase* TargetCharacter;
+	class ACharacterBase* TargetCharacter;
+
+	EJob Job;
 
 	FTimerHandle TimerHandle;
 

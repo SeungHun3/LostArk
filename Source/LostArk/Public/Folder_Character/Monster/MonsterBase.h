@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Folder_Character/CharacterBase.h"
+#include "ResourceMgr.h"
 #include "MonsterBase.generated.h"
 
 /**
@@ -15,6 +16,7 @@ class LOSTARK_API AMonsterBase : public ACharacterBase
 	GENERATED_BODY()
 public:
 	AMonsterBase();
+	EMonster Type;
 	int Gold;
 	virtual void BeginPlay() override;
 

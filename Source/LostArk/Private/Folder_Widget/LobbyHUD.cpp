@@ -23,14 +23,13 @@ void ULobbyHUD::InGame() // 서버데이터 받거나 SaveGame 저장 = 현재는 Default 로 
 	UGI_LostArk* pGI = Cast<UGI_LostArk>(GetGameInstance());
 	if (pGI)
 	{
-		FCharaterInfo* TargetInfo = pGI->JobMeshTable->FindRow<FCharaterInfo>(FName("Warrior"), "");
-		if (TargetInfo)
+		USkeletalMesh* Mesh = ResourceMgr::GetInst()->GetPlayerMesh(EJob::Warrior);
+		if (Mesh)
 		{
-			pGI->SetPlayerInfo(TargetInfo);
+			pGI->SetPlayerInfo(EJob::Warrior);
 			pGI->ChangeLevel(3.f, "InGame");
 			SetVisibility(ESlateVisibility::Collapsed);
 		}
-
 	}
 }
 
